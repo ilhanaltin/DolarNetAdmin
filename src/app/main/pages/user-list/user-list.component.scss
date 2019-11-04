@@ -10,4 +10,15 @@ table {
   td, th {
     width: 10%;
   }
-  
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.add-event-button {
+  //position: absolute;
+  right: 18px;
+  bottom: -26px;
+  z-index: 10;
+}

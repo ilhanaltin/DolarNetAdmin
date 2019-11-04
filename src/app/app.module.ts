@@ -19,6 +19,10 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from './main/pages/sample/sample.module';
 import { UserListModule } from 'app/main/pages/user-list/user-list.module';
+import { UserAddUpdateDialogModule } from './main/pages/user-add-update-dialog/user-add-update-dialog.module';
+import { UsersModule } from './main/pages/users/users.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeDbService } from 'app/fake-db/fake-db.service';
 
 const appRoutes: Routes = [
     {
@@ -33,7 +37,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent        
         ],
     imports     : [
         BrowserModule,
@@ -42,6 +46,10 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
 
         TranslateModule.forRoot(),
+        InMemoryWebApiModule.forRoot(FakeDbService, {
+            delay             : 0,
+            passThruUnknownUrl: true
+        }),
 
         // Material moment date module
         MatMomentDateModule,
@@ -60,7 +68,9 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
         SampleModule,
-        UserListModule
+        UserListModule,
+        UserAddUpdateDialogModule,
+        UsersModule
     ],
     bootstrap   : [
         AppComponent        

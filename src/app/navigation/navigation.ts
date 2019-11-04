@@ -17,6 +17,18 @@ export const navigation: FuseNavigation[] = [
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
+            },
+            {
+                id       : 'contacts',
+                title    : 'Kullanıcı Listesi2',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/contacts',
+                badge    : {
+                    title    : '25',                    
+                    bg       : '#F44336',
+                    fg       : '#FFFFFF'
+                }
             }
         ]
     }

@@ -9,6 +9,8 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { UserListComponent } from './user-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes = [
     {
@@ -29,7 +31,9 @@ const routes = [
         MatPaginatorModule,
         MatFormFieldModule,
         MatInputModule,        
-        FuseSharedModule
+        FuseSharedModule,
+        MatIconModule
+        
     ],
     exports: [
         UserListComponent

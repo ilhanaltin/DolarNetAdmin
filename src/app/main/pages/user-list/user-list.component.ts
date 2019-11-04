@@ -5,11 +5,15 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { UserService } from 'app/main/services/user.service';
 import { UserVM } from 'app/main/models/user/UserVM';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { UserAddUpdateDialogComponent } from '../user-add-update-dialog/user-add-update-dialog.component';
+import { fuseAnimations } from '@fuse/animations';
 
 @Component({
   selector: 'user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
+  animations   : fuseAnimations
 })
 export class UserListComponent implements OnInit {
 
@@ -19,7 +23,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private userService: UserService) { 
+  constructor(private userService: UserService, public dialog: MatDialog) { 
      // Assign the data to the data source for the table to render
      var usersVM: UserVM[] = []
      this.dataSource = new MatTableDataSource(usersVM);
@@ -34,7 +38,7 @@ export class UserListComponent implements OnInit {
 
       console.log(resp.result.userList);
     });
-  }
+  }  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -47,5 +51,20 @@ export class UserListComponent implements OnInit {
   getUsers()
   {
     return this.userService.getAll();
+  }
+
+  openDialog(): void {
+
+    let userVM = new UserVM({});
+
+    const dialogRef = this.dialog.open(UserAddUpdateDialogComponent, {
+      width: '250px', data: userVM
+      //data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
 }
