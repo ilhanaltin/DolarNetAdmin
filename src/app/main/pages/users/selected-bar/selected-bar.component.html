@@ -3,7 +3,7 @@
     <div class="close-button-wrapper" fxFlex="0 1 auto" fxFlex.gt-sm="220px" (click)="deselectAll()">
         <button class="p-8" mat-button fxLayout="row" fxLayoutAlign="start center">
             <mat-icon class="mr-8">arrow_back</mat-icon>
-            <span class="text-uppercase">Back</span>
+            <span class="text-uppercase">Geri</span>
         </button>
     </div>
 
@@ -12,22 +12,22 @@
         <div>
             <span class="selected-contacts-count">
                 <span class="mr-4">{{selectedContacts.length}}</span>
-                <span>selected</span>
+                <span>seçili</span>
             </span>
 
             <button mat-icon-button [matMenuTriggerFor]="selectMenu">
                 <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-menu #selectMenu="matMenu">
-                <button mat-menu-item (click)="selectAll()">Select all</button>
-                <button mat-menu-item (click)="deselectAll()">Deselect all</button>
+                <button mat-menu-item (click)="selectAll()">Hepsini Seç</button>
+                <button mat-menu-item (click)="deselectAll()">Hepsini kaldır</button>
             </mat-menu>
 
         </div>
 
         <div class="multi-select-actions">
             <button mat-icon-button (click)="deleteSelectedContacts()" aria-label="delete selected">
-                <mat-icon>delete</mat-icon>
+                <mat-icon>Sil</mat-icon>
             </button>
         </div>
 

@@ -17,9 +17,6 @@ import { fuseConfig } from 'app/fuse-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from './main/pages/sample/sample.module';
-import { UserListModule } from 'app/main/pages/user-list/user-list.module';
-import { UserAddUpdateDialogModule } from './main/pages/user-add-update-dialog/user-add-update-dialog.module';
 import { UsersModule } from './main/pages/users/users.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from 'app/fake-db/fake-db.service';
@@ -27,12 +24,8 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
-    },
-    {
-        path        : 'user-list',
-        loadChildren: './main/pages/user-list/user-list.module'
-    },
+        redirectTo: 'users'
+    }
 ];
 
 @NgModule({
@@ -67,9 +60,6 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule,
-        UserListModule,
-        UserAddUpdateDialogModule,
         UsersModule
     ],
     bootstrap   : [

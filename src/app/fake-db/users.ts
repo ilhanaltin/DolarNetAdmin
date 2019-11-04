@@ -210,7 +210,7 @@ export class UsersFakeDb
     public static user = [
         {
             'id'              : '1',
-            'name'            : 'John Doe',
+            'name'            : 'İlhan ALTIN',
             'avatar'          : 'assets/images/avatars/profile.jpg',
             'starred'         : [
                 '2',

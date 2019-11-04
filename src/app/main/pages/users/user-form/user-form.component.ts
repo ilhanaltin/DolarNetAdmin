@@ -18,7 +18,6 @@ export class UsersUserFormDialogComponent
     roles = [];
     statusList = [];
     dialogTitle: string;
-    roleControl = new FormControl('', [Validators.required]);
 
     /**
      * Constructor
@@ -38,12 +37,12 @@ export class UsersUserFormDialogComponent
 
         if ( this.action === 'edit' )
         {
-            this.dialogTitle = 'Edit User';
+            this.dialogTitle = 'Kullanıcı Güncelle';
             this.user = _data.user;
         }
         else
         {
-            this.dialogTitle = 'New User';
+            this.dialogTitle = 'Yeni Kullancı';
             this.user = new UserVM({});
         }
 
@@ -71,7 +70,7 @@ export class UsersUserFormDialogComponent
             nickname    : [this.user.nickname],
             avatar      : [this.user.avatar],
             email       : [this.user.email],
-            statusId       : [this.user.statusId],
+            statusId    : [this.user.statusId],
             roleId      : [this.user.roleId],
             roles       : [''],
             statusList  : ['']            

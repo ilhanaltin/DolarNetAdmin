@@ -3,11 +3,7 @@ export const locale = {
     data: {
         'NAV': {
             'APPLICATIONS': 'Uygulamalar',
-            'USERLIST': {
-                'TITLE': 'Kullanıcı Listesi',
-                'BADGE': '15'
-            },
-            'contacts': {
+            'USERS': {
                 'TITLE': 'Kullanıcı Listesi',
                 'BADGE': '15'
             }

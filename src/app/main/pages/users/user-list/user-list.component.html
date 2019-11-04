@@ -21,7 +21,7 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Ad-Soyad</mat-header-cell>
         <mat-cell *matCellDef="let user">
             <p class="text-truncate font-weight-600">{{user.name}} {{user.lastName}}</p>
         </mat-cell>
@@ -29,7 +29,7 @@
 
     <!-- Nickname Column -->
     <ng-container matColumnDef="nickname">
-        <mat-header-cell *matHeaderCellDef>Nickname</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Rumuz</mat-header-cell>
         <mat-cell *matCellDef="let user">
             <p class="text-truncate font-weight-600">{{user.nickname}}</p>
         </mat-cell>
@@ -37,7 +37,7 @@
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Email</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Eposta</mat-header-cell>
         <mat-cell *matCellDef="let user" fxHide fxShow.gt-sm>
             <p class="email text-truncate">
                 {{user.email}}
@@ -47,7 +47,7 @@
 
     <!-- Rol Column -->
     <ng-container matColumnDef="roleName">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Role</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Rol</mat-header-cell>
         <mat-cell *matCellDef="let user" fxHide fxShow.gt-sm>
             <p class="email text-truncate">
                 {{user.roleName}}
@@ -57,7 +57,7 @@
 
     <!-- Status Column -->
     <ng-container matColumnDef="statusName">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Status</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Durum</mat-header-cell>
         <mat-cell *matCellDef="let user" fxHide fxShow.gt-sm>
             <p class="email text-truncate">
                 {{user.statusName}}
@@ -83,7 +83,7 @@
                 <mat-menu #moreMenu="matMenu">
                     <button mat-menu-item aria-label="remove" (click)="deleteUser(user)">
                         <mat-icon>delete</mat-icon>
-                        <span>Remove</span>
+                        <span>Sil</span>
                     </button>
                 </mat-menu>
             </div>

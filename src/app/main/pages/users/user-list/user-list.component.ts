@@ -169,7 +169,7 @@ export class UsersUserListComponent implements OnInit, OnDestroy
             disableClose: false
         });
 
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Silmek istediğinize emin misiniz?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
             if ( result )

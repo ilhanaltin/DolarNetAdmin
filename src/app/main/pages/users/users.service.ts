@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseUtils } from '@fuse/utils';
 import { UserVM } from 'app/main/models/user/UserVM';
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 
 @Injectable()
 export class UsersService implements Resolve<any>
@@ -91,18 +92,22 @@ export class UsersService implements Resolve<any>
 
                         this.users = response;
 
-                        if ( this.filterBy === 'starred' )
+                        if ( this.filterBy === 'editors' )
                         {
-                            this.users = this.users.filter(_user => {
-                                return this.user.starred.includes(_user.id);
-                            });
+                            this.users = this.users.filter(_user => 
+                                _user.roleId == GlobalConstants.UserRoles.Editor);
                         }
 
-                        if ( this.filterBy === 'frequent' )
+                        if ( this.filterBy === 'admins' )
                         {
-                            this.users = this.users.filter(_user => {
-                                return this.user.frequentUsers.includes(_user.id);
-                            });
+                            this.users = this.users.filter(_user => 
+                                _user.roleId == GlobalConstants.UserRoles.Admin);
+                        }
+
+                        if ( this.filterBy === 'users' )
+                        {
+                            this.users = this.users.filter(_user => 
+                                _user.roleId == GlobalConstants.UserRoles.User);
                         }
 
                         if ( this.searchText && this.searchText !== '' )
@@ -110,9 +115,9 @@ export class UsersService implements Resolve<any>
                             this.users = FuseUtils.filterArrayByString(this.users, this.searchText);
                         }
 
-                        this.users = this.users.map(user => {
+                        /*this.users = this.users.map(user => {
                             return new UserVM(user);
-                        });
+                        });*/                        
 
                         this.onUsersChanged.next(this.users);
                         resolve(this.users);

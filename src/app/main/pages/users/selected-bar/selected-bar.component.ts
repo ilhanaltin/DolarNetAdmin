@@ -96,7 +96,7 @@ export class UsersSelectedBarComponent implements OnInit, OnDestroy
             disableClose: false
         });
 
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete all selected users?';
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Seçtiğiniz tüm kullanıcıları silmek istediğinizden emin misiniz?';
 
         this.confirmDialogRef.afterClosed()
             .subscribe(result => {

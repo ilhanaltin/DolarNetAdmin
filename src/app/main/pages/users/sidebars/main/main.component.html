@@ -21,9 +21,27 @@
                 <div class="nav-item" aria-label="inbox">
                     <a class="nav-link" matRipple (click)="changeFilter('all')"
                        [ngClass]="{'active accent':filterBy ==='all'}">
-                        <span class="title">All Us</span>
+                        <span class="title">Tümü</span>
                     </a>
-                </div>                
+                </div>  
+                
+                <div class="nav-item" aria-label="editor users" (click)="changeFilter('editors')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='editors'}">
+                        <div class="title">Editörler</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="admin users" (click)="changeFilter('admins')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='admins'}">
+                        <div class="title">Yöneticiler</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="normal users" (click)="changeFilter('users')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='users'}">
+                        <div class="title">Kullanıcılar</div>
+                    </a>
+                </div>
             </div>
 
         </div>
