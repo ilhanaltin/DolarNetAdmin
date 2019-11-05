@@ -7,7 +7,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
-import { UsersService } from 'app/main/pages/users/users.service';
+import { UsersService } from 'app/main/services/users.service';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 
 @Component({

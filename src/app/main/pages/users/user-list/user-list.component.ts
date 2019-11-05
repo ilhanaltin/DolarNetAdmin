@@ -8,7 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
-import { UsersService } from 'app/main/pages/users/users.service';
+import { UsersService } from 'app/main/services/users.service';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 import { UserVM } from 'app/main/models/user/UserVM';
 
@@ -25,7 +25,6 @@ export class UsersUserListComponent implements OnInit, OnDestroy
     dialogContent: TemplateRef<any>;
 
     users: UserVM[];
-    user: UserVM;
     dataSource: FilesDataSource | null;
     displayedColumns = ['checkbox', 'avatar', 'name', 'nickname','email', 'roleName', 'statusName', 'buttons'];
     selectedUsers: UserVM[];
@@ -68,9 +67,14 @@ export class UsersUserListComponent implements OnInit, OnDestroy
                 this.users = users;
 
                 this.checkboxes = {};
-                users.map(user => {
+
+                for(let i = 0; i< this.users.length; i++){
+                    this.checkboxes[this.users[i].id] = false;
+                }
+                
+                /*this.users.map(user => {
                     this.checkboxes[user.id] = false;
-                });
+                });*/
             });
 
         this._usersService.onSelectedUsersChanged
@@ -88,11 +92,11 @@ export class UsersUserListComponent implements OnInit, OnDestroy
                 this.selectedUsers = selectedUsers;
             });
 
-        this._usersService.onUserDataChanged
+        /*/this._usersService.onUserDataChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(user => {
                 this.user = user;
-            });
+            });*/
 
         this._usersService.onFilterChanged
             .pipe(takeUntil(this._unsubscribeAll))

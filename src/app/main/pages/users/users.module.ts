@@ -15,13 +15,13 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 
 import { UsersComponent } from 'app/main/pages/users/users.component';
-import { UsersService } from 'app/main/pages/users/users.service';
 import { UsersUserListComponent } from 'app/main/pages/users/user-list/user-list.component';
 import { UsersSelectedBarComponent } from 'app/main/pages/users/selected-bar/selected-bar.component';
 import { UsersMainSidebarComponent } from 'app/main/pages/users/sidebars/main/main.component';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
+import { UsersService } from 'app/main/services/users.service';
 
-const routes: Routes = [
+/* const routes: Routes = [
     {
         path     : '**',
         component: UsersComponent,
@@ -29,7 +29,7 @@ const routes: Routes = [
             users: UsersService
         }
     }
-];
+]; */
 
 @NgModule({
     declarations   : [
@@ -40,7 +40,7 @@ const routes: Routes = [
         UsersUserFormDialogComponent
     ],
     imports        : [
-        RouterModule.forChild(routes),
+        //RouterModule.forChild(routes),
 
         MatButtonModule,
         MatCheckboxModule,

@@ -16,7 +16,7 @@ export class UserVM
      *
      * @param user
      */
-    constructor(user)
+    constructor(user)   
     {
         {
             this.id = user.id || '100000';

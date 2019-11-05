@@ -1,11 +1,16 @@
+import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseUtils } from '@fuse/utils';
 import { UserVM } from 'app/main/models/user/UserVM';
 import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
+import { apiConfig } from 'app/fuse-config/api.config';
+import { StandartResponseDetailsVM } from '../models/StandartResponseDetailsVM';
+import { ServiceResult } from '../models/ServiceResult';
+import { UserListResponseDetailsVM } from '../models/user/UserListResponseDetailsVM';
 
 @Injectable()
 export class UsersService implements Resolve<any>
@@ -17,7 +22,6 @@ export class UsersService implements Resolve<any>
     onFilterChanged: Subject<any>;
 
     users: UserVM[];
-    user: any;
     selectedUsers: number[] = [];
 
     searchText: string;
@@ -26,11 +30,9 @@ export class UsersService implements Resolve<any>
     /**
      * Constructor
      *
-     * @param {HttpClient} _httpClient
+     * @param {BaseService} _baseService
      */
-    constructor(
-        private _httpClient: HttpClient
-    )
+    constructor(private _baseService: BaseService)
     {
         // Set the defaults
         this.onUsersChanged = new BehaviorSubject([]);
@@ -57,7 +59,7 @@ export class UsersService implements Resolve<any>
 
             Promise.all([
                 this.getUsers(),
-                this.getUserData()
+                //this.getUserData()
             ]).then(
                 ([files]) => {
 
@@ -72,7 +74,6 @@ export class UsersService implements Resolve<any>
                     });
 
                     resolve();
-
                 },
                 reject
             );
@@ -87,10 +88,18 @@ export class UsersService implements Resolve<any>
     getUsers(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('api/users-users')
+
+            let myParams = new HttpParams()
+                .append('ItemCount', '10')
+                .append('PageId', '1')
+                .append('RoleId', '-1');
+
+                this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.User.GetAllUser, myParams)
                     .subscribe((response: any) => {
 
-                        this.users = response;
+                        let result = response as ServiceResult<UserListResponseDetailsVM>;
+
+                        this.users = result.result.userList;
 
                         if ( this.filterBy === 'editors' )
                         {
@@ -115,12 +124,9 @@ export class UsersService implements Resolve<any>
                             this.users = FuseUtils.filterArrayByString(this.users, this.searchText);
                         }
 
-                        /*this.users = this.users.map(user => {
-                            return new UserVM(user);
-                        });*/                        
-
                         this.onUsersChanged.next(this.users);
                         resolve(this.users);
+
                     }, reject);
             }
         );
@@ -131,7 +137,7 @@ export class UsersService implements Resolve<any>
      *
      * @returns {Promise<any>}
      */
-    getUserData(): Promise<any>
+    /* getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
                 this._httpClient.get('api/users-user/1')
@@ -142,7 +148,7 @@ export class UsersService implements Resolve<any>
                     }, reject);
             }
         );
-    }
+    } */
 
     /**
      * Toggle selected user by id
@@ -223,7 +229,7 @@ export class UsersService implements Resolve<any>
     {
         return new Promise((resolve, reject) => {
 
-            this._httpClient.post('api/users-users/' + user.id, {...user})
+            this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.UpdateUser, {...user})
                 .subscribe(response => {
                     this.getUsers();
                     resolve(response);
@@ -237,7 +243,7 @@ export class UsersService implements Resolve<any>
      * @param userData
      * @returns {Promise<any>}
      */
-    updateUserData(userData): Promise<any>
+    /* updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
             this._httpClient.post('api/users-user/' + this.user.id, {...userData})
@@ -247,7 +253,7 @@ export class UsersService implements Resolve<any>
                     resolve(response);
                 });
         });
-    }
+    } */
 
     /**
      * Deselect users
@@ -267,8 +273,10 @@ export class UsersService implements Resolve<any>
      */
     deleteUser(user): void
     {
-        const userIndex = this.users.indexOf(user);
-        this.users.splice(userIndex, 1);
+        let myParams = new HttpParams()
+            .append('id', user.id)
+
+        this._baseService.delete<StandartResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteUser, myParams);
         this.onUsersChanged.next(this.users);
     }
 
