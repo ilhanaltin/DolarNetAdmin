@@ -29,7 +29,10 @@
             <div class="title">HESABINIZA GİRİŞ YAPIN</div>
 
             <form name="loginForm" [formGroup]="loginForm" novalidate>
-
+                <mat-error *ngIf="invalidLogin">
+                    Kullanıcı adınız ve/veya şifreniz hatalı. 
+                </mat-error>
+                
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">

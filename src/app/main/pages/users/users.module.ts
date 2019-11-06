@@ -21,15 +21,13 @@ import { UsersMainSidebarComponent } from 'app/main/pages/users/sidebars/main/ma
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 import { UsersService } from 'app/main/services/users.service';
 
-/* const routes: Routes = [
+const routes: Routes = [
     {
-        path     : '**',
+        path     : 'users',
         component: UsersComponent,
-        resolve  : {
-            users: UsersService
-        }
+        resolve  : { users: UsersService }
     }
-]; */
+];
 
 @NgModule({
     declarations   : [
@@ -40,7 +38,7 @@ import { UsersService } from 'app/main/services/users.service';
         UsersUserFormDialogComponent
     ],
     imports        : [
-        //RouterModule.forChild(routes),
+        RouterModule.forChild(routes),
 
         MatButtonModule,
         MatCheckboxModule,

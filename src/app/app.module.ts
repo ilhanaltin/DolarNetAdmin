@@ -61,8 +61,8 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        UsersModule,
-        LoginModule
+        LoginModule,
+        UsersModule
     ],
     bootstrap   : [
         AppComponent        

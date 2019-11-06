@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { LoginResponseDetailsVM } from '../models/authentication/LoginResponseDetailsVM';
 import { apiConfig } from 'app/fuse-config/api.config';
+import {Md5} from "md5-typescript";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,9 @@ export class AuthenticationService {
   constructor(private _baseService: BaseService) { }
 
   login(credentials) {
-    //let post = { UserName: 'ilhanaltin', Password: 'e44f5f0bf7a453a731217f288641ab16', RoleId: 1 }
-    console.log(JSON.stringify(credentials));
-    return this._baseService.post<LoginResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.User.Authenticate, JSON.stringify(credentials), false);
+
+    credentials.password = Md5.init(credentials.password);
+    
+    return this._baseService.post<LoginResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.User.Authenticate, credentials, false);
   }
 }
