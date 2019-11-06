@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
-    currentUserVM: UserVM;
     invalidLogin: boolean;
 
     /**
@@ -68,22 +67,16 @@ export class LoginComponent implements OnInit
     }
 
     login(credentials) : void {
-
-        this._authenticationService.login(credentials.getRawValue()).subscribe(response =>{
-            this.currentUserVM = response.result.user;
-
-            if(response.status == 200)
-            {
-                localStorage.setItem("token","Bearer " + response.result.token);
-
-                this._router.navigate(['/users']);
-
-                console.log(response.result.user);
-            }
-            else
-            {
-                this.invalidLogin = true;
-            }
+        this._authenticationService.login(credentials)
+            .subscribe(result =>{
+                if(result)
+                {
+                    this._router.navigate(['/users']);
+                }
+                else
+                {
+                    this.invalidLogin = true;
+                }
         });
     }
 }

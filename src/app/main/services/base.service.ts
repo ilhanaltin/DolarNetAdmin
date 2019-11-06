@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class BaseService {
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private headerWithToken = this.headers.set("Authorization", localStorage.getItem("token"));  
+  private headerWithToken = this.headers.set("Authorization", "Bearer " + localStorage.getItem("token"));  
 
   constructor(private httpClient: HttpClient) { }
 
