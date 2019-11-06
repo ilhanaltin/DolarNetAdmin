@@ -5,10 +5,10 @@
         <!-- SIDEBAR HEADER -->
         <div class="header p-24" fxLayout="row" fxLayoutAlign="start center">
 
-            <!-- USER 
-            <img [src]="user.avatar" class="avatar mr-16" [alt]="user.name"/>
+            <!-- USER -->
+            <img [src]="_authenticationService.currentUser.avatar" class="avatar mr-16" [alt]="_authenticationService.currentUser.name"/>
             <span class="h5">{{user.name}}</span>
-            / USER -->
+            <!--/ USER -->
 
         </div>
         <!-- / SIDEBAR HEADER -->

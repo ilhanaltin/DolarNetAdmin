@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UserVM } from './../models/user/UserVM';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { LoginResponseDetailsVM } from '../models/authentication/LoginResponseDetailsVM';
@@ -17,8 +19,9 @@ export class AuthenticationService {
      * Constructor
      *
      * @param {BaseService} _baseService
+     * @param {Router} _router
      */
-  constructor(private _baseService: BaseService) { }
+  constructor(private _baseService: BaseService, private _router: Router) { }
 
   login(credentials) {
 
@@ -31,7 +34,8 @@ export class AuthenticationService {
           map(response => {
             if(response.status == 200)
             {
-                localStorage.setItem("token",response.result.token);
+                localStorage.setItem("token", response.result.token);
+                localStorage.setItem("current-user",JSON.stringify(response.result.user));
                 //localStorage.setItem("token","Bearer " + response.result.token);
                 return true;
             }
@@ -42,19 +46,33 @@ export class AuthenticationService {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('current-user');
+
+    this._router.navigate(['/login']);
   }
 
   isLoggedIn()
   {
-    return !this.helper.isTokenExpired();
+    let token = localStorage.getItem('token');
+
+    return token != null && !this.helper.isTokenExpired(token);
   }
 
-  get currentUser()
+  get currentUserFromJwt()
   {
     let token = localStorage.getItem('token');
 
     if(!token) return null;
 
     return this.helper.decodeToken("Bearer " + token);
+  }
+
+  get currentUser()
+  {
+    let user = JSON.parse(localStorage.getItem('current-user')) as UserVM;
+
+    if(!user) return new UserVM({});
+
+    return user;
   }
 }

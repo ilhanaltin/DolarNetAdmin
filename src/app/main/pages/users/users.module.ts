@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +26,7 @@ const routes: Routes = [
     {
         path     : 'users',
         component: UsersComponent,
+        canActivate: [AuthGuard],
         resolve  : { users: UsersService }
     }
 ];

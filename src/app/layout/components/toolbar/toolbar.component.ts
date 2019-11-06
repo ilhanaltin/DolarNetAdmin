@@ -36,6 +36,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      * @param {FuseConfigService} _fuseConfigService
      * @param {FuseSidebarService} _fuseSidebarService
      * @param {TranslateService} _translateService
+     * @param {AuthenticationService} _authenticationService
      */
     constructor(
         private _fuseConfigService: FuseConfigService,

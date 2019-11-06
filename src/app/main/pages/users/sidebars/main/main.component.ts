@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UsersService } from 'app/main/services/users.service';
+import { AuthenticationService } from 'app/main/services/authentication.service';
 
 @Component({
     selector   : 'users-main-sidebar',
@@ -20,8 +21,9 @@ export class UsersMainSidebarComponent implements OnInit, OnDestroy
      * Constructor
      *
      * @param {UsersService} _usersService
+     * @param {AuthenticationService} _authenticationService
      */
-    constructor(private _usersService: UsersService)
+    constructor(private _usersService: UsersService, private _authenticationService: AuthenticationService)
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
