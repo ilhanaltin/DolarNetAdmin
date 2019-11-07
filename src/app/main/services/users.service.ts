@@ -227,9 +227,31 @@ export class UsersService implements Resolve<any>
      */
     updateUser(user): Promise<any>
     {
+        console.log(user);
+
         return new Promise((resolve, reject) => {
 
             this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.UpdateUser, {...user})
+                .subscribe(response => {
+                    this.getUsers();
+                    resolve(response);
+                });
+        });
+    }
+
+    /**
+     * Save new user
+     *
+     * @param user
+     * @returns {Promise<any>}
+     */
+    saveUser(user): Promise<any>
+    {
+        console.log(user);
+        
+        return new Promise((resolve, reject) => {
+
+            this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.Register, {...user})
                 .subscribe(response => {
                     this.getUsers();
                     resolve(response);

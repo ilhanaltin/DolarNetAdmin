@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { AuthGuard } from './../../services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -52,6 +53,7 @@ const routes: Routes = [
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,
+        MatSelectModule,
 
         FuseSharedModule,
         FuseConfirmDialogModule,

@@ -1,15 +1,13 @@
-export class UserVM
+export class RegisterUserVM
 {
-    id: number;
     name: string;
     lastName: string;
     nickName: string;
     avatar: string;
     email: string;
-    statusId: number;
-    statusName: string;
+    password: string;
+    passwordConfirm: string;
     roleId: number;
-    roleName: string;
 
     /**
      * Constructor
@@ -19,16 +17,14 @@ export class UserVM
     constructor(user)   
     {
         {
-            this.id = user.id || 0;
             this.name = user.name || '';
             this.lastName = user.lastName || '';
             this.avatar = user.avatar || 'assets/images/avatars/profile.jpg';
             this.nickName = user.nickName || '';
             this.email = user.email || '';
-            this.statusId = user.statusId || '';
-            this.statusName = user.statusName || '';
+            this.password = user.password || '';
+            this.passwordConfirm = user.passwordConfirm || '';
             this.roleId = user.roleId || 0;
-            this.roleName = user.roleName || '';
         }
     }
 }

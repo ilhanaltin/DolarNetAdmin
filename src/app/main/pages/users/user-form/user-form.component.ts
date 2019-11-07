@@ -1,5 +1,7 @@
+import { RegisterUserVM } from './../../../models/user/RegisterUserVM';
+import { EditUserVM } from './../../../models/user/EditUserVM';
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserVM } from 'app/main/models/user/UserVM';
 
@@ -13,7 +15,8 @@ import { UserVM } from 'app/main/models/user/UserVM';
 export class UsersUserFormDialogComponent
 {
     action: string;
-    user: UserVM;
+    editUser: EditUserVM;
+    registerUser: RegisterUserVM;
     userForm: FormGroup;
     roles = [];
     statusList = [];
@@ -38,12 +41,12 @@ export class UsersUserFormDialogComponent
         if ( this.action === 'edit' )
         {
             this.dialogTitle = 'Kullanıcı Güncelle';
-            this.user = _data.user;
+            this.editUser = _data.user;
         }
         else
         {
             this.dialogTitle = 'Yeni Kullancı';
-            this.user = new UserVM({});
+            this.registerUser = new RegisterUserVM({});
         }
 
         this.userForm = this.createUserForm();
@@ -63,33 +66,83 @@ export class UsersUserFormDialogComponent
      */
     createUserForm(): FormGroup
     {
-        return this._formBuilder.group({
-            id          : [this.user.id],
-            name        : [this.user.name],
-            lastName    : [this.user.lastName],
-            nickname    : [this.user.nickname],
-            avatar      : [this.user.avatar],
-            email       : [this.user.email],
-            statusId    : [this.user.statusId],
-            roleId      : [this.user.roleId],
-            roles       : [''],
-            statusList  : ['']            
-        });
+        if ( this.action === 'edit' )
+        {
+            return this._formBuilder.group({
+                id          : [this.editUser.id],
+                name        : [this.editUser.name, Validators.required],
+                lastName    : [this.editUser.lastName, Validators.required],
+                nickName    : [this.editUser.nickName, Validators.required],
+                avatar      : [this.editUser.avatar],
+                email       : [this.editUser.email, [Validators.required, Validators.email]],
+                statusId    : [this.editUser.statusId, Validators.required],
+                roleId      : [this.editUser.roleId, Validators.required]
+            });        
+        }
+        else
+        {
+            return this._formBuilder.group({
+                name        : ['', Validators.required],
+                lastName    : ['', Validators.required],
+                nickName    : ['', Validators.required],
+                avatar          : [this.registerUser.avatar],
+                email           : ['', [Validators.required, Validators.email]],
+                password        : ['', Validators.required],
+                passwordConfirm : ['', [Validators.required, confirmPasswordValidator]],
+                roleId          : ['', Validators.required],
+                statusId        : [1]
+            });        
+        }        
     }
 
     getRoles() {
         return [
-          { id: '1', name: 'Yönetici' },
-          { id: '2', name: 'Editör' },
-          { id: '3', name: 'Üye' }
+          { id: 1, name: 'Yönetici' },
+          { id: 2, name: 'Editör' },
+          { id: 3, name: 'Üye' }
         ];
       }
 
     getStatusList() {
         return [
-          { id: '1', name: 'Aktif' },
-          { id: '2', name: 'Silinmiş' },
-          { id: '3', name: 'Kara Listede' }
+          { id: 1, name: 'Aktif' },
+          { id: 2, name: 'Silinmiş' },
+          { id: 3, name: 'Kara Listede' }
         ];
       }
 }
+
+/**
+ * Confirm password validator
+ *
+ * @param {AbstractControl} control
+ * @returns {ValidationErrors | null}
+ */
+export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+
+    if ( !control.parent || !control )
+    {
+        return null;
+    }
+
+    
+    const password = control.parent.get('password');
+    const passwordConfirm = control.parent.get('passwordConfirm');
+
+    if ( !password || !passwordConfirm )
+    {
+        return null;
+    }
+
+    if ( passwordConfirm.value === '' )
+    {
+        return null;
+    }
+
+    if ( password.value === passwordConfirm.value )
+    {
+        return null;
+    }
+
+    return {passwordsNotMatching: true};
+};

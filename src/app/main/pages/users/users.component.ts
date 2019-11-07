@@ -10,6 +10,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { UsersService } from 'app/main/services/users.service';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 
+import {Md5} from "md5-typescript";
+
 @Component({
     selector     : 'users',
     templateUrl  : './users.component.html',
@@ -105,7 +107,12 @@ export class UsersComponent implements OnInit, OnDestroy
                     return;
                 }
 
-                this._usersService.updateUser(response.getRawValue());
+                let formDataOfUser = response.getRawValue();
+
+                formDataOfUser.password = Md5.init(formDataOfUser.password);
+                formDataOfUser.passwordConfirm = "";
+        
+                this._usersService.saveUser(formDataOfUser);
             });
     }
 
