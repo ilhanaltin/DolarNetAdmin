@@ -21,6 +21,7 @@ import { UsersModule } from './main/pages/users/users.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { LoginModule } from './main/pages/authentication/login/login.module';
+import { AuditModule } from './main/pages/audit/audit.module';
 
 const appRoutes: Routes = [
     {
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
         LoginModule,
-        UsersModule
+        UsersModule,
+        AuditModule
     ],
     bootstrap   : [
         AppComponent        

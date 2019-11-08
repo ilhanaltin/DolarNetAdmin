@@ -1,0 +1,56 @@
+<div class="divfullWidth">
+    <mat-table #table [dataSource]="dataSource"
+            [@animateStagger]="{value:'50'}">
+
+        <!-- Log Type -->
+        <ng-container matColumnDef="logTypeAdi">
+            <mat-header-cell *matHeaderCellDef>Log Tipi</mat-header-cell>
+            <mat-cell *matCellDef="let log">
+                <p class="text-truncate font-weight-600">{{log.logTypeAdi}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Action Type -->
+        <ng-container matColumnDef="actionTypeAdi">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let log">
+                <p class="text-truncate font-weight-600">{{log.actionTypeAdi}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- CRUD Type Column -->
+        <ng-container matColumnDef="crudTypeAdi">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Crud</mat-header-cell>
+            <mat-cell *matCellDef="let log" fxHide fxShow.gt-sm>
+                <p class="text-truncate">
+                    {{log.crudTypeAdi}}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Detail Column -->
+        <ng-container matColumnDef="detail">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Detay</mat-header-cell>
+            <mat-cell *matCellDef="let log" fxHide fxShow.gt-sm>
+                <p class="text-truncate">
+                    {{log.detail}}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  
+        <mat-row *matRowDef="let log; columns: displayedColumns;"
+                class="audit"
+                [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>      
+    </mat-table>
+
+    <mat-paginator #paginator
+                    [length]="dataSource.filteredDataCount"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>
+
+

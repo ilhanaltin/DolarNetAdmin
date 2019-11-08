@@ -1,0 +1,52 @@
+<div class="sidebar-content">
+
+    <div class="card">
+
+        <!-- SIDEBAR HEADER -->
+        <div class="header p-24" fxLayout="row" fxLayoutAlign="start center">
+
+            <!-- USER -->
+           <!--  <img [src]="_authenticationService.currentUser.avatar" class="avatar mr-16" [alt]="_authenticationService.currentUser.name"/>
+            <span class="h5">{{user.name}}</span> -->
+            <!--/ USER -->
+
+        </div>
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav material2">
+
+                <div class="nav-item" aria-label="inbox">
+                    <a class="nav-link" matRipple (click)="changeFilter('all')"
+                       [ngClass]="{'active accent':filterBy ==='all'}">
+                        <span class="title">Tümü</span>
+                    </a>
+                </div>  
+                
+                <div class="nav-item" aria-label="error logs" (click)="changeFilter('error')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='error'}">
+                        <div class="title">Hata Logları</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="action logs" (click)="changeFilter('action')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='action'}">
+                        <div class="title">İşlem Logları</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="dboperation logs" (click)="changeFilter('dboperation')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='dboperation'}">
+                        <div class="title">Veritabanı Haraketleri</div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

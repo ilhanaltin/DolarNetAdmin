@@ -85,7 +85,7 @@ export const apiConfig = {
         Audit:
         {
           GetAll: "Logs",
-          GetById: "GetById",
+          GetById: "Logs/GetById",
           Post: "Logs"
         },
         Types:

@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UsersService } from 'app/main/services/users.service';
+import { AuditService } from 'app/main/services/audit.service';
 import { AuthenticationService } from 'app/main/services/authentication.service';
 import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 
 @Component({
-    selector   : 'users-main-sidebar',
+    selector   : 'logs-main-sidebar',
     templateUrl: './main.component.html',
     styleUrls  : ['./main.component.scss']
 })
-export class UsersMainSidebarComponent implements OnInit, OnDestroy
+export class LogsMainSidebarComponent implements OnInit, OnDestroy
 {
-    user: any;
+    log: any;
     filterBy: string;
 
     // Private
@@ -21,10 +21,10 @@ export class UsersMainSidebarComponent implements OnInit, OnDestroy
     /**
      * Constructor
      *
-     * @param {UsersService} _usersService
+     * @param {LogsService} _logsService
      * @param {AuthenticationService} _authenticationService
      */
-    constructor(private _usersService: UsersService, private _authenticationService: AuthenticationService)
+    constructor(private _auditService: AuditService, private _authenticationService: AuthenticationService)
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -39,28 +39,22 @@ export class UsersMainSidebarComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        if ( this._usersService.filterBy === GlobalConstants.UserRoles.Editor )
+        if ( this._auditService.filterBy === GlobalConstants.LogType.Error )
         {
-            this.filterBy = 'editors';
+            this.filterBy = 'error';
         }
-        else  if ( this._usersService.filterBy === GlobalConstants.UserRoles.Admin )
+        else  if ( this._auditService.filterBy === GlobalConstants.LogType.Action )
         {
-            this.filterBy = 'admins';
+            this.filterBy = 'action';
         }
-        else  if ( this._usersService.filterBy === GlobalConstants.UserRoles.User )
+        else  if ( this._auditService.filterBy === GlobalConstants.LogType.DbOperation )
         {
-            this.filterBy = 'users';
+            this.filterBy = 'dboperation';
         }
         else
         {
             this.filterBy = 'all';
         }
-
-        this._usersService.onUserDataChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(user => {
-                this.user = user;
-            });
     }
 
     /**
@@ -86,21 +80,21 @@ export class UsersMainSidebarComponent implements OnInit, OnDestroy
     {
         this.filterBy = filter;
 
-        if ( this.filterBy === 'editors' )
+        if ( this.filterBy === 'error' )
         {
-            this._usersService.onFilterChanged.next(GlobalConstants.UserRoles.Editor);
+            this._auditService.onFilterChanged.next(GlobalConstants.LogType.Error);
         }
-        else  if ( this.filterBy === 'admins' )
+        else  if ( this.filterBy === 'action' )
         {
-            this._usersService.onFilterChanged.next(GlobalConstants.UserRoles.Admin);
+            this._auditService.onFilterChanged.next(GlobalConstants.LogType.Action);
         }
-        else  if ( this.filterBy === 'users' )
+        else  if ( this.filterBy === 'dboperation' )
         {
-            this._usersService.onFilterChanged.next(GlobalConstants.UserRoles.User);
+            this._auditService.onFilterChanged.next(GlobalConstants.LogType.DbOperation);
         }
         else
         {
-            this._usersService.onFilterChanged.next(-1);
+            this._auditService.onFilterChanged.next(-1);
         }
     }
 }

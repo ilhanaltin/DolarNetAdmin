@@ -8,15 +8,17 @@ export const navigation: FuseNavigation[] = [
         children : [
             {
                 id       : 'users',
-                title    : 'Kullanıcı Listesi',
+                title    : 'Kullanıcı Yönetim',
                 type     : 'item',
                 icon     : 'person',
-                url      : '/users',
-                badge    : {
-                    title    : '25',                    
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
+                url      : '/users'
+            },
+            {
+                id       : 'audit',
+                title    : 'Log Yönetim',
+                type     : 'item',
+                icon     : 'search',
+                url      : '/audit',
             }
         ]
     }

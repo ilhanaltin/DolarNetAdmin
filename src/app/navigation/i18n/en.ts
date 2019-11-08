@@ -6,6 +6,10 @@ export const locale = {
             'USERS': {
                 'TITLE': 'Users',
                 'BADGE': '25'
+            },
+            'AUDIT': {
+                'TITLE': 'Audit Follow ',
+                'BADGE': '15'
             }
         }
     }

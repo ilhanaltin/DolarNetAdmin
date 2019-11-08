@@ -28,7 +28,7 @@ export class UsersService implements Resolve<any>
     selectedUsers: number[] = [];
 
     searchText: string;
-    filterBy: string;
+    filterBy: number = -1;
 
     pagingVM = new PagingVM({});
 
@@ -105,7 +105,7 @@ export class UsersService implements Resolve<any>
             let myParams = new HttpParams()
                 .append('ItemCount', this.pagingVM.pageItemCount.toString())
                 .append('PageId', this.pagingVM.currentPage.toString())
-                .append('RoleId', '-1');
+                .append('RoleId', this.filterBy.toString());
 
                 this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.User.GetAllUser, myParams)
                     .subscribe((response: any) => {
@@ -114,24 +114,6 @@ export class UsersService implements Resolve<any>
                         this.pagingVM = result.result.pagingVM;
 
                         this.users = result.result.userList;
-
-                        if ( this.filterBy === 'editors' )
-                        {
-                            this.users = this.users.filter(_user => 
-                                _user.roleId == GlobalConstants.UserRoles.Editor);
-                        }
-
-                        if ( this.filterBy === 'admins' )
-                        {
-                            this.users = this.users.filter(_user => 
-                                _user.roleId == GlobalConstants.UserRoles.Admin);
-                        }
-
-                        if ( this.filterBy === 'users' )
-                        {
-                            this.users = this.users.filter(_user => 
-                                _user.roleId == GlobalConstants.UserRoles.User);
-                        }
 
                         if ( this.searchText && this.searchText !== '' )
                         {
