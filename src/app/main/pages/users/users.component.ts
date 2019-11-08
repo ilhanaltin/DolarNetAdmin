@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit, OnDestroy
      * On init
      */
     ngOnInit(): void
-    {
+    {        
         this._usersService.onSelectedUsersChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(selectedUsers => {

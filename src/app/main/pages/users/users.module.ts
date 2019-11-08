@@ -22,6 +22,7 @@ import { UsersSelectedBarComponent } from 'app/main/pages/users/selected-bar/sel
 import { UsersMainSidebarComponent } from 'app/main/pages/users/sidebars/main/main.component';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 import { UsersService } from 'app/main/services/users.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -54,6 +55,7 @@ const routes: Routes = [
         MatTableModule,
         MatToolbarModule,
         MatSelectModule,
+        MatPaginatorModule,
 
         FuseSharedModule,
         FuseConfirmDialogModule,

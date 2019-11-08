@@ -6,6 +6,7 @@ export class EditUserVM
     nickName: string;
     avatar: string;
     email: string;
+    password: string;
     roleId: number;
     statusId: number;
 }

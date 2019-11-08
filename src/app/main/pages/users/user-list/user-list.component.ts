@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { PagingVM } from './../../../models/PagingVM';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
+import {merge, of as observableOf} from 'rxjs';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
@@ -11,6 +13,8 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
 import { UsersService } from 'app/main/services/users.service';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 import { UserVM } from 'app/main/models/user/UserVM';
+import {MatPaginator} from '@angular/material/paginator';
+import { UserListResponseDetailsVM } from 'app/main/models/user/UserListResponseDetailsVM';
 
 @Component({
     selector     : 'users-user-list',
@@ -22,6 +26,10 @@ import { UserVM } from 'app/main/models/user/UserVM';
 export class UsersUserListComponent implements OnInit, OnDestroy
 {
     @ViewChild('dialogContent', {static: false})
+
+    @ViewChild(MatPaginator, {static: true})
+    paginator: MatPaginator;
+    
     dialogContent: TemplateRef<any>;
 
     users: UserVM[];
@@ -103,6 +111,25 @@ export class UsersUserListComponent implements OnInit, OnDestroy
             .subscribe(() => {
                 this._usersService.deselectUsers();
             });
+
+        this._usersService.onPagingCalculated
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(paging => {
+                this.dataSource.filteredDataCount = paging.totalCount;
+            });
+    }
+
+    /**
+     * After init
+     */
+    ngAfterViewInit()
+    {
+        this.paginator.page
+            .pipe(
+                tap(() => {
+                    this._usersService.onPagingChanged.next(this.paginator)
+                })
+            ).subscribe();
     }
 
     /**
@@ -212,11 +239,13 @@ export class UsersUserListComponent implements OnInit, OnDestroy
         }
 
         this._usersService.updateUserData(this.user);*/
-    }
+    }    
 }
 
 export class FilesDataSource extends DataSource<any>
 {
+    filteredDataCount: number;
+    
     /**
      * Constructor
      *
@@ -227,6 +256,7 @@ export class FilesDataSource extends DataSource<any>
     )
     {
         super();
+        this.filteredDataCount = _usersService.pagingVM.totalCount;
     }
 
     /**
@@ -238,10 +268,16 @@ export class FilesDataSource extends DataSource<any>
         return this._usersService.onUsersChanged;
     }
 
+    // Filtered data
+    get filteredData(): any
+    {
+        return this.filteredDataCount;
+    }
+
     /**
      * Disconnect
      */
     disconnect(): void
     {
-    }
+    }    
 }

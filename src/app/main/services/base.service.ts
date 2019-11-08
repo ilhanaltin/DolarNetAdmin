@@ -56,8 +56,8 @@ export class BaseService {
   }
 
   delete<T>(url: string, myParams: HttpParams, allowAnonymous: boolean = false)
-  {
-    let options = { headers: allowAnonymous ? this.headers: this.headerWithToken , params: myParams};
+  {       
+    let options = { headers: allowAnonymous ? this.headers: this.headerWithToken, params: myParams};
 
     return this.httpClient.delete<ServiceResult<T>>(url, options)
       .pipe(

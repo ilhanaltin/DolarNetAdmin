@@ -1,3 +1,4 @@
+import { PagingVM } from './../models/PagingVM';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -20,12 +21,16 @@ export class UsersService implements Resolve<any>
     onUserDataChanged: BehaviorSubject<any>;
     onSearchTextChanged: Subject<any>;
     onFilterChanged: Subject<any>;
+    onPagingChanged: Subject<any>;
+    onPagingCalculated: Subject<any>;
 
-    users: UserVM[];
+    users: any[];
     selectedUsers: number[] = [];
 
     searchText: string;
     filterBy: string;
+
+    pagingVM = new PagingVM({});
 
     /**
      * Constructor
@@ -40,6 +45,8 @@ export class UsersService implements Resolve<any>
         this.onUserDataChanged = new BehaviorSubject([]);
         this.onSearchTextChanged = new Subject();
         this.onFilterChanged = new Subject();
+        this.onPagingChanged = new Subject();
+        this.onPagingCalculated = new Subject();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -73,6 +80,12 @@ export class UsersService implements Resolve<any>
                         this.getUsers();
                     });
 
+                    this.onPagingChanged.subscribe(paging => {
+                        this.pagingVM.currentPage = paging.pageIndex;
+                        this.pagingVM.pageItemCount = paging.pageSize;
+                        this.getUsers();
+                    });
+
                     resolve();
                 },
                 reject
@@ -90,14 +103,15 @@ export class UsersService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             let myParams = new HttpParams()
-                .append('ItemCount', '10')
-                .append('PageId', '1')
+                .append('ItemCount', this.pagingVM.pageItemCount.toString())
+                .append('PageId', this.pagingVM.currentPage.toString())
                 .append('RoleId', '-1');
 
                 this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.User.GetAllUser, myParams)
                     .subscribe((response: any) => {
 
                         let result = response as ServiceResult<UserListResponseDetailsVM>;
+                        this.pagingVM = result.result.pagingVM;
 
                         this.users = result.result.userList;
 
@@ -125,6 +139,7 @@ export class UsersService implements Resolve<any>
                         }
 
                         this.onUsersChanged.next(this.users);
+                        this.onPagingCalculated.next(this.pagingVM);
                         resolve(this.users);
 
                     }, reject);
@@ -227,8 +242,6 @@ export class UsersService implements Resolve<any>
      */
     updateUser(user): Promise<any>
     {
-        console.log(user);
-
         return new Promise((resolve, reject) => {
 
             this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.UpdateUser, {...user})
@@ -247,8 +260,6 @@ export class UsersService implements Resolve<any>
      */
     saveUser(user): Promise<any>
     {
-        console.log(user);
-        
         return new Promise((resolve, reject) => {
 
             this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.Register, {...user})
@@ -296,10 +307,14 @@ export class UsersService implements Resolve<any>
     deleteUser(user): void
     {
         let myParams = new HttpParams()
-            .append('id', user.id)
+            .append('id', user.id);
 
-        this._baseService.delete<StandartResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteUser, myParams);
-        this.onUsersChanged.next(this.users);
+        this._baseService.delete(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteUser, myParams)
+        .subscribe(result=>{ });
+
+        const userIndex = this.users.indexOf(user);
+            this.users.splice(userIndex, 1);
+            this.onUsersChanged.next(this.users);
     }
 
     /**
