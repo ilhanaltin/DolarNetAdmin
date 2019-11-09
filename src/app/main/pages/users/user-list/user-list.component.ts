@@ -73,13 +73,9 @@ export class UsersUserListComponent implements OnInit, OnDestroy
 
                 this.checkboxes = {};
 
-                for(let i = 0; i< this.users.length; i++){
-                    this.checkboxes[this.users[i].id] = false;
-                }
-                
-                /*this.users.map(user => {
+                this.users.map(user => {
                     this.checkboxes[user.id] = false;
-                });*/
+                });
             });
 
         this._usersService.onSelectedUsersChanged
@@ -96,12 +92,6 @@ export class UsersUserListComponent implements OnInit, OnDestroy
                 }
                 this.selectedUsers = selectedUsers;
             });
-
-        /*/this._usersService.onUserDataChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(user => {
-                this.user = user;
-            });*/
 
         this._usersService.onFilterChanged
             .pipe(takeUntil(this._unsubscribeAll))
@@ -218,25 +208,6 @@ export class UsersUserListComponent implements OnInit, OnDestroy
     {
         this._usersService.toggleSelectedUser(userId);
     }
-
-    /**
-     * Toggle star
-     *
-     * @param userId
-     */
-    toggleStar(userId): void
-    {
-        /*if ( this.user.starred.includes(userId) )
-        {
-            this.user.starred.splice(this.user.starred.indexOf(userId), 1);
-        }
-        else
-        {
-            this.user.starred.push(userId);
-        }
-
-        this._usersService.updateUserData(this.user);*/
-    }    
 }
 
 export class FilesDataSource extends DataSource<any>

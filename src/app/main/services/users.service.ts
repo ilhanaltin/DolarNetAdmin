@@ -66,7 +66,6 @@ export class UsersService implements Resolve<any>
 
             Promise.all([
                 this.getUsers(),
-                //this.getUserData()
             ]).then(
                 ([files]) => {
 
@@ -128,24 +127,6 @@ export class UsersService implements Resolve<any>
             }
         );
     }
-
-    /**
-     * Get user data
-     *
-     * @returns {Promise<any>}
-     */
-    /* getUserData(): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-                this._httpClient.get('api/users-user/1')
-                    .subscribe((response: any) => {
-                        this.user = response;
-                        this.onUserDataChanged.next(this.user);
-                        resolve(this.user);
-                    }, reject);
-            }
-        );
-    } */
 
     /**
      * Toggle selected user by id
@@ -253,24 +234,6 @@ export class UsersService implements Resolve<any>
     }
 
     /**
-     * Update user data
-     *
-     * @param userData
-     * @returns {Promise<any>}
-     */
-    /* updateUserData(userData): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-            this._httpClient.post('api/users-user/' + this.user.id, {...userData})
-                .subscribe(response => {
-                    this.getUserData();
-                    this.getUsers();
-                    resolve(response);
-                });
-        });
-    } */
-
-    /**
      * Deselect users
      */
     deselectUsers(): void
@@ -315,5 +278,4 @@ export class UsersService implements Resolve<any>
         this.onUsersChanged.next(this.users);
         this.deselectUsers();
     }
-
 }
