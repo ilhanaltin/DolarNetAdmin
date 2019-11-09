@@ -9,6 +9,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { LogVM } from 'app/main/models/audit/LogVM';
 import {MatPaginator} from '@angular/material/paginator';
 import { AuditService } from 'app/main/services/audit.service';
+import { AuditDetailsFormDialogComponent } from '../audit-details-form/audit-details-form.component';
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 
 @Component({
     selector     : 'logs-log-list',
@@ -19,6 +21,8 @@ import { AuditService } from 'app/main/services/audit.service';
 })
 export class LogsLogListComponent implements OnInit, OnDestroy
 {
+    @ViewChild('dialogContent', {static: false})
+
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
     
@@ -27,6 +31,9 @@ export class LogsLogListComponent implements OnInit, OnDestroy
     logs: LogVM[];
     dataSource: FilesDataSource | null;
     displayedColumns = ['logTypeAdi','actionTypeAdi','crudTypeAdi', 'detail'];
+    dialogRef: any;
+
+    filterBy: number = -1;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -68,6 +75,29 @@ export class LogsLogListComponent implements OnInit, OnDestroy
             .subscribe(paging => {
                 this.dataSource.filteredDataCount = paging.totalCount;
             });
+
+        this._logsService.onFilterChanged
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(filter => {
+                this.filterBy = filter;
+
+                if (filter === GlobalConstants.LogType.Error )
+                {
+                    this.displayedColumns = ['detail'];
+                }
+                else  if (filter === GlobalConstants.LogType.Action )
+                {
+                    this.displayedColumns = ['actionTypeAdi', 'detail'];
+                }
+                else  if (filter === GlobalConstants.LogType.DbOperation )
+                {
+                    this.displayedColumns = ['crudTypeAdi', 'detail'];
+                }
+                else
+                {
+                    this.displayedColumns = ['logTypeAdi','actionTypeAdi','crudTypeAdi', 'detail'];
+                }
+        });
     }
 
     /**
@@ -96,6 +126,22 @@ export class LogsLogListComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Log Detail
+     *
+     * @param log
+     */
+    logDetail(log): void
+    {
+        this.dialogRef = this._matDialog.open(AuditDetailsFormDialogComponent, {
+            //panelClass: 'audit-details-form-dialog',
+            data      : {
+                log: log,
+                action : 'detail'
+            }
+        });
+    }
 }
 
 export class FilesDataSource extends DataSource<any>

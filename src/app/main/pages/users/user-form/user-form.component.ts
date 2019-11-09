@@ -3,7 +3,6 @@ import { EditUserVM } from './../../../models/user/EditUserVM';
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserVM } from 'app/main/models/user/UserVM';
 
 @Component({
     selector     : 'users-user-form-dialog',

@@ -5,16 +5,13 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
-import {merge, of as observableOf} from 'rxjs';
-
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 import { UsersService } from 'app/main/services/users.service';
 import { UsersUserFormDialogComponent } from 'app/main/pages/users/user-form/user-form.component';
 import { UserVM } from 'app/main/models/user/UserVM';
-import {MatPaginator} from '@angular/material/paginator';
-import { UserListResponseDetailsVM } from 'app/main/models/user/UserListResponseDetailsVM';
+import { MatPaginator} from '@angular/material/paginator';
 
 @Component({
     selector     : 'users-user-list',

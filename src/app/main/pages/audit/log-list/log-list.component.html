@@ -3,7 +3,7 @@
             [@animateStagger]="{value:'50'}">
 
         <!-- Log Type -->
-        <ng-container matColumnDef="logTypeAdi">
+        <ng-container matColumnDef="logTypeAdi" *ngIf="filterBy === -1">
             <mat-header-cell *matHeaderCellDef>Log Tipi</mat-header-cell>
             <mat-cell *matCellDef="let log">
                 <p class="text-truncate font-weight-600">{{log.logTypeAdi}}</p>
@@ -11,7 +11,7 @@
         </ng-container>
 
         <!-- Action Type -->
-        <ng-container matColumnDef="actionTypeAdi">
+        <ng-container matColumnDef="actionTypeAdi" *ngIf="filterBy === 2 || filterBy ===-1">
             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
             <mat-cell *matCellDef="let log">
                 <p class="text-truncate font-weight-600">{{log.actionTypeAdi}}</p>
@@ -19,7 +19,7 @@
         </ng-container>
 
         <!-- CRUD Type Column -->
-        <ng-container matColumnDef="crudTypeAdi">
+        <ng-container matColumnDef="crudTypeAdi" *ngIf="filterBy === 3 || filterBy ===-1">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Crud</mat-header-cell>
             <mat-cell *matCellDef="let log" fxHide fxShow.gt-sm>
                 <p class="text-truncate">
@@ -41,6 +41,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  
         <mat-row *matRowDef="let log; columns: displayedColumns;"
                 class="audit"
+                (click)="logDetail(log)"
                 [@animate]="{value:'*',params:{y:'100%'}}">
         </mat-row>      
     </mat-table>

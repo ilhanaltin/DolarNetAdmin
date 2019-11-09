@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthGuard } from './../../services/auth-guard.service';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { LogsLogListComponent } from 'app/main/pages/audit/log-list/log-list.com
 import { LogsMainSidebarComponent } from 'app/main/pages/audit/sidebars/main/main.component';
 import { AuditService } from 'app/main/services/audit.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AuditDetailsFormDialogComponent } from './audit-details-form/audit-details-form.component';
 
 const routes: Routes = [
     {
@@ -35,7 +37,8 @@ const routes: Routes = [
     declarations   : [
         AuditComponent,
         LogsLogListComponent,
-        LogsMainSidebarComponent
+        LogsMainSidebarComponent,
+        AuditDetailsFormDialogComponent
     ],
     imports        : [
         RouterModule.forChild(routes),
@@ -52,6 +55,8 @@ const routes: Routes = [
         MatToolbarModule,
         MatSelectModule,
         MatPaginatorModule,
+        MatButtonModule,
+        MatDialogModule,
 
         FuseSharedModule,
         FuseConfirmDialogModule,
@@ -60,7 +65,9 @@ const routes: Routes = [
     providers      : [
         AuditService
     ],
-    entryComponents: []
+    entryComponents: [
+        AuditDetailsFormDialogComponent
+    ]
 })
 export class AuditModule
 {
