@@ -8,7 +8,11 @@ export const locale = {
                 'BADGE': '25'
             },
             'AUDIT': {
-                'TITLE': 'Audit Follow ',
+                'TITLE': 'Audit Follow',
+                'BADGE': '15'
+            },
+            'POSTS': {
+                'TITLE': 'Post Management',
                 'BADGE': '15'
             }
         }

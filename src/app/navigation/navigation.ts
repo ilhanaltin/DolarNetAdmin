@@ -19,6 +19,13 @@ export const navigation: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'search',
                 url      : '/audit',
+            },
+            {
+                id       : 'blog',
+                title    : 'Yazı Yönetim',
+                type     : 'item',
+                icon     : 'search',
+                url      : '/posts',
             }
         ]
     }

@@ -1,0 +1,149 @@
+<div id="posts" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    import_contacts
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Yazılar
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Yazılarda ara">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button
+                    [routerLink]="'/posts/new'"
+                    class="add-post-button fuse-white mt-24 mt-md-0">
+                <span>YENİ YAZI EKLE</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="posts-table"
+                       #table [dataSource]="dataSource"
+                       matSort
+                       [@animateStagger]="{value:'50'}"
+                       fusePerfectScrollbar>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let post">
+                        <p class="text-truncate">{{post.id}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Konu</mat-header-cell>
+                    <mat-cell *matCellDef="let post">
+                        <p class="text-truncate">{{post.title}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                 <!-- Author Name Column -->
+                 <ng-container matColumnDef="authorName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Yazar</mat-header-cell>
+                    <mat-cell *matCellDef="let post">
+                        <p class="text-truncate">{{post.authorName}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                 <!-- Author Nickname Column -->
+                 <ng-container matColumnDef="authorNickName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rumuz</mat-header-cell>
+                    <mat-cell *matCellDef="let post">
+                        <p class="text-truncate">{{post.authorNickName}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Category Column -->
+                <ng-container matColumnDef="categoryTypeName">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Kategori</mat-header-cell>
+                    <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{post.categoryTypeName}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="statusTypeName">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Durum</mat-header-cell>
+                    <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{post.statusTypeName}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Like Count Column -->
+                <ng-container matColumnDef="likeCount">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Beğeni Sayısı</mat-header-cell>
+                    <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{post.likeCount}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Comment Count Column -->
+                <ng-container matColumnDef="commentCount">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Yorum Sayısı</mat-header-cell>
+                    <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{post.commentCount}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let post; columns: displayedColumns;"
+                         class="post"
+                         matRipple
+                         [routerLink]="'/posts/'+post.id">
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator
+                           [length]="dataSource.filteredData.length"
+                           [pageIndex]="0"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

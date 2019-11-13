@@ -6,10 +6,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseUtils } from '@fuse/utils';
-import { UserVM } from 'app/main/models/user/UserVM';
-import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 import { apiConfig } from 'app/fuse-config/api.config';
-import { StandartResponseDetailsVM } from '../models/StandartResponseDetailsVM';
 import { ServiceResult } from '../models/ServiceResult';
 import { UserListResponseDetailsVM } from '../models/user/UserListResponseDetailsVM';
 

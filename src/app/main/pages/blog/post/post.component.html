@@ -1,0 +1,139 @@
+<div id="post" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/posts'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{post.title}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        Yeni Yazı
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Yazı Detayı</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button
+                    class="save-post-button"
+                    [disabled]="postForm.invalid"
+                    *ngIf="pageType ==='new'" (click)="addPost()">
+                <span>EKLE</span>
+            </button>
+
+            <button mat-raised-button
+                    class="save-post-button"
+                    [disabled]="postForm.invalid || postForm.pristine"
+                    *ngIf="pageType ==='edit'" (click)="savePost()">
+                <span>KAYDET</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="postForm" [formGroup]="postForm" class="post w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Basic Info">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Yazı Başlığı</mat-label>
+                                    <input matInput placeholder="Yazı Başlığı"
+                                           name="title"
+                                           formControlName="title"
+                                           required>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Yazı İçeriği</mat-label>
+                                    <textarea matInput placeholder="Yazı İçeriği"
+                                              name="content"
+                                              formControlName="content"
+                                              rows="5">
+                                    </textarea>
+                                </mat-form-field>
+
+                               <!--  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+                                    <mat-label>Kategoriler</mat-label>
+
+                                    <mat-chip-list #categoryList name="categories" formControlName="categories">
+
+                                        <mat-chip *ngFor="let category of product.categories"
+                                                  [removable]="true" (removed)="product.removeCategory(category)">
+                                            {{category}}
+                                            <mat-icon matChipRemove>cancel</mat-icon>
+                                        </mat-chip>
+
+                                        <input [matChipInputFor]="categoryList"
+                                               [matChipInputAddOnBlur]="true"
+                                               (matChipInputTokenEnd)="product.addCategory($event)"/>
+
+                                    </mat-chip-list>
+
+                                </mat-form-field> -->
+
+                               <!--  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+                                    <mat-label>Tags</mat-label>
+
+                                    <mat-chip-list #tagList name="tags" formControlName="tags">
+
+                                        <mat-chip *ngFor="let tag of product.tags"
+                                                  [removable]="true" (removed)="product.removeTag(tag)">
+                                            {{tag}}
+                                            <mat-icon matChipRemove>cancel</mat-icon>
+                                        </mat-chip>
+
+                                        <input [matChipInputFor]="tagList"
+                                               [matChipInputAddOnBlur]="true"
+                                               (matChipInputTokenEnd)="product.addTag($event)"/>
+
+                                    </mat-chip-list>
+
+                                </mat-form-field> -->
+
+                            </div>
+
+                        </mat-tab>
+                       
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

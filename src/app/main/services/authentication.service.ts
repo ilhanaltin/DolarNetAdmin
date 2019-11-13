@@ -25,7 +25,9 @@ export class AuthenticationService {
 
   login(credentials) {
 
+    console.log(credentials.password);
     credentials.password = Md5.init(credentials.password);
+    console.log(credentials.password);
     
     return this._baseService.post<LoginResponseDetailsVM>(apiConfig.Api.Main.Url 
       + apiConfig.Services.User.Authenticate, 
