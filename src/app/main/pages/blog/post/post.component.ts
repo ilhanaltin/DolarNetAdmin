@@ -147,7 +147,6 @@ export class PostComponent implements OnInit, OnDestroy
     addPost(): void
     {
         const data = this.postForm.getRawValue();
-        data.handle = FuseUtils.handleize(data.name);
 
         this._postService.savePost(data)
             .then(() => {

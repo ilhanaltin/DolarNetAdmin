@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { BaseService } from './base.service';
 import { apiConfig } from 'app/fuse-config/api.config';
 import { HttpParams } from '@angular/common/http';
@@ -15,6 +15,8 @@ export class PostsService implements Resolve<any>
     pagingVM = new PagingVM({});
 
     onPostsChanged: BehaviorSubject<any>;
+    onPagingChanged: Subject<any>;
+    onPagingCalculated: Subject<any>;
 
     /**
      * Constructor
@@ -27,6 +29,8 @@ export class PostsService implements Resolve<any>
     {
         // Set the defaults
         this.onPostsChanged = new BehaviorSubject({});
+        this.onPagingChanged = new Subject();
+        this.onPagingCalculated = new Subject();
     }
 
     /**
@@ -44,6 +48,13 @@ export class PostsService implements Resolve<any>
                 this.getPosts()
             ]).then(
                 () => {
+
+                    this.onPagingChanged.subscribe(paging => {
+                        this.pagingVM.currentPage = paging.pageIndex;
+                        this.pagingVM.pageItemCount = paging.pageSize;
+                        this.getPosts();
+                    });
+
                     resolve();
                 },
                 reject
@@ -59,9 +70,9 @@ export class PostsService implements Resolve<any>
     getPosts(): Promise<any>
     {
         let myParams = new HttpParams()
-                    .append('ItemCount', "10")
-                    .append('PageId', "1")
-                    .append('CategoryId', "-1");
+                .append('ItemCount', this.pagingVM.pageItemCount.toString())
+                .append('PageId', this.pagingVM.currentPage.toString())
+                .append('RoleId', "-1");
                     
         return new Promise((resolve, reject) => {
             this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.Blog.GetAll, myParams)
@@ -73,6 +84,7 @@ export class PostsService implements Resolve<any>
                     this.posts = result.result.postList;
 
                     this.onPostsChanged.next(this.posts);
+                    this.onPagingCalculated.next(this.pagingVM);
                     resolve(response);
                 }, reject);
         });

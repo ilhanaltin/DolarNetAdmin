@@ -1,9 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
@@ -25,9 +24,6 @@ export class PostsComponent implements OnInit
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
-
-    @ViewChild(MatSort, {static: true})
-    sort: MatSort;
 
     @ViewChild('filter', {static: true})
     filter: ElementRef;
@@ -52,7 +48,7 @@ export class PostsComponent implements OnInit
      */
     ngOnInit(): void
     {
-        this.dataSource = new FilesDataSource(this._postsService, this.paginator, this.sort);
+        this.dataSource = new FilesDataSource(this._postsService);
 
         fromEvent(this.filter.nativeElement, 'keyup')
             .pipe(
@@ -68,6 +64,25 @@ export class PostsComponent implements OnInit
 
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+
+        this._postsService.onPagingCalculated
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(paging => {
+                this.dataSource.filteredDataCount = paging.totalCount;
+            });
+    }
+
+    /**
+     * After init
+     */
+    ngAfterViewInit()
+    {
+        this.paginator.page
+            .pipe(
+                tap(() => {
+                    this._postsService.onPagingChanged.next(this.paginator)
+                })
+            ).subscribe();
     }
 }
 
@@ -75,23 +90,21 @@ export class FilesDataSource extends DataSource<any>
 {
     private _filterChange = new BehaviorSubject('');
     private _filteredDataChange = new BehaviorSubject('');
+    filteredDataCount: number;
 
     /**
      * Constructor
      *
      * @param {PostsService} _postsService
-     * @param {MatPaginator} _matPaginator
-     * @param {MatSort} _matSort
      */
     constructor(
-        private _postsService: PostsService,
-        private _matPaginator: MatPaginator,
-        private _matSort: MatSort
+        private _postsService: PostsService
     )
     {
         super();
 
         this.filteredData = this._postsService.posts;
+        this.filteredDataCount = _postsService.pagingVM.totalCount;
     }
 
     /**
