@@ -1,6 +1,7 @@
+import { UserVM } from './../../../models/user/UserVM';
 import { PostVM } from './../../../models/blog/PostVM';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
@@ -9,6 +10,8 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 import { PostService } from 'app/main/services/post.service';
+
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector     : 'blog-post',
@@ -22,6 +25,10 @@ export class PostComponent implements OnInit, OnDestroy
     post: PostVM;
     pageType: string;
     postForm: FormGroup;
+    categoryList = [];
+    statusList = [];
+
+    public Editor = ClassicEditor;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -46,6 +53,9 @@ export class PostComponent implements OnInit, OnDestroy
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+
+        this.categoryList = this.getCategoryList();
+        this.statusList = this.getStatusList();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -98,10 +108,15 @@ export class PostComponent implements OnInit, OnDestroy
      */
     createPostForm(): FormGroup
     {
+        let currentUser = JSON.parse(localStorage.getItem("current-user")) as UserVM;
+
         return this._formBuilder.group({
             id              : [this.post.id],
-            title           : [this.post.title],
-            content         : [this.post.content]
+            title           : [this.post.title, Validators.required],
+            content         : [this.post.content, Validators.required],
+            authorId        : [currentUser.id],
+            categoryTypeId  : [this.post.categoryTypeId, Validators.required],
+            statusTypeId    : [this.post.statusTypeId, Validators.required]
         });
     }
 
@@ -111,7 +126,6 @@ export class PostComponent implements OnInit, OnDestroy
     savePost(): void
     {
         const data = this.postForm.getRawValue();
-        data.handle = FuseUtils.handleize(data.name);
 
         this._postService.savePost(data)
             .then(() => {
@@ -151,4 +165,23 @@ export class PostComponent implements OnInit, OnDestroy
                 this._location.go('main/pages/blog/posts/' + this.post.id);
             });
     }
+
+    getCategoryList() {
+        return [
+            { id: 1, name: "Döviz" },
+            { id: 2, name: "Altın" },
+            { id: 3, name: "Pariteler" },
+            { id: 4, name: "Kripto" },
+            { id: 5, name: "Paralar" },
+            { id: 6, name: "Borsa" },
+            { id: 7, name: "Gündem" }
+        ];
+      }
+
+      getStatusList() {
+        return [
+            { id: 1, name: "Taslak" },
+            { id: 2, name: "Yayınlandı" }
+        ];
+      }
 }

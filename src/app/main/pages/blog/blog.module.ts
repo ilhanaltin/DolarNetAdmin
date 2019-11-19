@@ -22,7 +22,7 @@ import { PostService } from 'app/main/services/post.service';
 import { PostsComponent } from './posts/posts.component';
 import { PostsService } from '../../services/posts.service';
 import { PostComponent } from './post/post.component';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const routes: Routes = [
     {
@@ -62,6 +62,8 @@ const routes: Routes = [
         MatSnackBarModule,
         MatTableModule,
         MatTabsModule,
+        
+        CKEditorModule,
 
         NgxChartsModule,
         AgmCoreModule.forRoot({

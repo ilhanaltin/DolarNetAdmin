@@ -34,7 +34,7 @@ export class PostVM
             this.content = post.content || '';
             this.categoryTypeId = post.categoryTypeId || 0;
             this.categoryTypeName = post.categoryTypeName || '';
-            this.statusTypeId = post.statusTypeId || 0;
+            this.statusTypeId = post.statusTypeId || 1;
             this.statusTypeName = post.statusTypeName || '';
             this.likeCount = post.likeCount || 0;
             this.commentCount = post.roleName || 0;
