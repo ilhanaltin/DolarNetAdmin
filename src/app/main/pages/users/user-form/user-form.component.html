@@ -8,19 +8,45 @@
         </mat-toolbar-row>
 
         <mat-toolbar-row *ngIf="action === 'edit'" class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
-            <img [src]="editUser.avatar" class="avatar user-avatar huge m-0" [alt]="editUser.name"/>
-            <div class="user-name mt-8">{{editUser.name}} {{editUser.lastName}}</div>
+            <img [src]="editUser.avatar" class="avatar user-avatar huge m-0" [alt]="editUser.name"/>            
+            <div class="user-name mt-8">{{editUser.name}} {{editUser.lastName}}</div>            
+            <div>
+                <input
+                    style="display: none"
+                    type="file" (change)="onFileChanged($event)"
+                    #fileInput>
+                <button mat-mini-fab
+                    color="warn"
+                    class="add-file-button"
+                    (click)="fileInput.click()"
+                    aria-label="Resim ekle">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
         </mat-toolbar-row>
 
         <mat-toolbar-row *ngIf="action !== 'edit'" class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
-            <img [src]="registerUser.avatar" class="avatar user-avatar huge m-0" [alt]="registerUser.name"/>
+            <img [src]="registerUser.avatar" class="avatar user-avatar huge m-0" [alt]="registerUser.name"/>            
             <div class="user-name mt-8">{{registerUser.name}} {{registerUser.lastName}}</div>
+            <div>
+                <input
+                    style="display: none"
+                    type="file" (change)="onFileChanged($event)"
+                    #fileInput>
+                <button mat-mini-fab
+                    color="warn"
+                    class="add-file-button"
+                    (click)="fileInput.click()"
+                    aria-label="Resim ekle">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
         </mat-toolbar-row>
     </mat-toolbar>
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
-        <form [formGroup]="userForm">
+        <form [formGroup]="userForm">            
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>

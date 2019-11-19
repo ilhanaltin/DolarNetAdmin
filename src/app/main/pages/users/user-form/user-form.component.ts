@@ -94,6 +94,11 @@ export class UsersUserFormDialogComponent
         }        
     }
 
+    onFileChanged(event) {
+        const file = event.target.files[0];
+        console.log(file);
+      }
+
     getRoles() {
         return [
           { id: 1, name: 'Yönetici' },
