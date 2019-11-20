@@ -36,6 +36,7 @@ export class AuthenticationService {
             {
                 localStorage.setItem("token", response.result.token);
                 localStorage.setItem("current-user",JSON.stringify(response.result.user));
+                localStorage.setItem("current-user-avatar", response.result.user.avatar);
                 //localStorage.setItem("token","Bearer " + response.result.token);
                 return true;
             }
@@ -47,6 +48,7 @@ export class AuthenticationService {
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('current-user');
+    localStorage.removeItem('current-user-avatar');
 
     this._router.navigate(['/login']);
   }
@@ -74,5 +76,12 @@ export class AuthenticationService {
     if(!user) return new UserVM({});
 
     return user;
+  }
+
+  get avatar()
+  {
+    let avatar = localStorage.getItem('current-user-avatar');
+
+    return avatar;
   }
 }

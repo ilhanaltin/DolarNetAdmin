@@ -4,7 +4,7 @@ export class EditUserVM
     name: string;
     lastName: string;
     nickName: string;
-    avatar: string;
+    avatar: any;
     email: string;
     password: string;
     roleId: number;

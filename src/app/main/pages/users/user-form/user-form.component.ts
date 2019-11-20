@@ -3,6 +3,7 @@ import { EditUserVM } from './../../../models/user/EditUserVM';
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 
 @Component({
     selector     : 'users-user-form-dialog',
@@ -84,7 +85,7 @@ export class UsersUserFormDialogComponent
                 name        : ['', Validators.required],
                 lastName    : ['', Validators.required],
                 nickName    : ['', Validators.required],
-                avatar          : [this.registerUser.avatar],
+                avatar          : null,
                 email           : ['', [Validators.required, Validators.email]],
                 password        : ['', Validators.required],
                 passwordConfirm : ['', [Validators.required, confirmPasswordValidator]],
@@ -95,8 +96,17 @@ export class UsersUserFormDialogComponent
     }
 
     onFileChanged(event) {
-        const file = event.target.files[0];
-        console.log(file);
+
+        let reader = new FileReader();
+        if(event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.userForm.get('avatar').setValue(reader.result as string);
+                this.editUser.avatar = reader.result;
+                localStorage.setItem("current-user-avatar", reader.result as string);
+            };
+        }
       }
 
     getRoles() {
