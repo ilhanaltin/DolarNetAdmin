@@ -1,6 +1,6 @@
 import { FuseNavigation } from '@fuse/types';
 
-export const navigation: FuseNavigation[] = [
+export const navigationAdmin: FuseNavigation[] = [
     {
         id       : 'applications',
         title    : 'Uygulamalar',
@@ -20,6 +20,23 @@ export const navigation: FuseNavigation[] = [
                 icon     : 'search',
                 url      : '/audit',
             },
+            {
+                id       : 'blog',
+                title    : 'Yazı Yönetim',
+                type     : 'item',
+                icon     : 'search',
+                url      : '/posts',
+            }
+        ]
+    }
+];
+
+export const navigationEditor: FuseNavigation[] = [
+    {
+        id       : 'applications',
+        title    : 'Uygulamalar',
+        type     : 'group',
+        children : [
             {
                 id       : 'blog',
                 title    : 'Yazı Yönetim',

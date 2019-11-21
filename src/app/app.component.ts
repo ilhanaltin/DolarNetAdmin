@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
@@ -11,7 +12,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
-import { navigation } from 'app/navigation/navigation';
+import { navigationAdmin } from 'app/navigation/navigation';
+import { navigationEditor } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 
@@ -52,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy
     )
     {
         // Get default navigation
-        this.navigation = navigation;
+        this.navigation = navigationAdmin;
 
         // Register the navigation to the service
         this._fuseNavigationService.register('main', this.navigation);
@@ -178,5 +180,20 @@ export class AppComponent implements OnInit, OnDestroy
     toggleSidebarOpen(key): void
     {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
+    }
+
+    changeNavigation(role)
+    {
+        if(role === GlobalConstants.UserRoles.Admin)
+        {
+            this.navigation = navigationAdmin;
+        }
+        else 
+        {
+            this.navigation = navigationEditor;
+        }
+
+        this._fuseNavigationService.unregister('main');
+        this._fuseNavigationService.register('main', this.navigation);
     }
 }

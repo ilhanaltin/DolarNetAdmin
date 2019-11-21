@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
-import { navigation } from 'app/navigation/navigation';
+import { navigationAdmin } from 'app/navigation/navigation';
 import { AuthenticationService } from 'app/main/services/authentication.service';
 
 @Component({
@@ -87,7 +87,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
             }
         ];
 
-        this.navigation = navigation;
+        this.navigation = navigationAdmin;
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();

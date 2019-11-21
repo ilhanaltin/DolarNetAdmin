@@ -1,3 +1,5 @@
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
+import { AppComponent } from 'app/app.component';
 import { AuthenticationService } from './../../../services/authentication.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +8,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { UserVM } from 'app/main/models/user/UserVM';
 import { Router } from '@angular/router';
+import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 
 @Component({
     selector     : 'login',
@@ -24,12 +27,16 @@ export class LoginComponent implements OnInit
      *
      * @param {FuseConfigService} _fuseConfigService
      * @param {FormBuilder} _formBuilder
+     * @param {AuthenticationService} _authenticationService,
+     * @param {Router} _router,
+     * @param {AppComponent} _appComponent
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private _authenticationService: AuthenticationService,
-        private _router: Router
+        private _router: Router,
+        private _appComponent: AppComponent
     )
     {
         // Configure the layout
@@ -71,7 +78,17 @@ export class LoginComponent implements OnInit
             .subscribe(result =>{
                 if(result)
                 {
-                    this._router.navigate(['/users']);
+                    let role = Number(localStorage.getItem("current-user-role"));
+                    this._appComponent.changeNavigation(role);
+
+                    if(role == GlobalConstants.UserRoles.Admin)
+                    {
+                        this._router.navigate(['/users']);
+                    }
+                    else
+                    {
+                        this._router.navigate(['/posts']);
+                    }
                 }
                 else
                 {
