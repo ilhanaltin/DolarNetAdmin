@@ -1,3 +1,4 @@
+import { AuthGuardAdmin } from './../../services/auth-guard-admin.service';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthGuard } from './../../services/auth-guard.service';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,7 @@ const routes: Routes = [
     {
         path     : 'users',
         component: UsersComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AuthGuardAdmin],
         resolve  : { users: UsersService }
     }
 ];
@@ -62,7 +63,10 @@ const routes: Routes = [
         FuseSidebarModule
     ],
     providers      : [
-        UsersService
+        UsersService,
+
+        AuthGuard,
+        AuthGuardAdmin
     ],
     entryComponents: [
         UsersUserFormDialogComponent

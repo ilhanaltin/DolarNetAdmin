@@ -53,14 +53,8 @@ export class AppComponent implements OnInit, OnDestroy
         private _platform: Platform
     )
     {
-        // Get default navigation
-        this.navigation = navigationAdmin;
-
-        // Register the navigation to the service
-        this._fuseNavigationService.register('main', this.navigation);
-
-        // Set the main navigation as our current navigation
-        this._fuseNavigationService.setCurrentNavigation('main');
+        //Set default navigation
+        this.setDefaultNavigation();
 
         // Add languages
         this._translateService.addLangs(['tr']);
@@ -195,5 +189,28 @@ export class AppComponent implements OnInit, OnDestroy
 
         this._fuseNavigationService.unregister('main');
         this._fuseNavigationService.register('main', this.navigation);
+
+        this._fuseNavigationService.setCurrentNavigation('main');
+    }
+
+    setDefaultNavigation()
+    {
+        let userRole = Number(localStorage.getItem("current-user-role"));
+
+        if(!userRole)
+        {
+            // Get default navigation
+            this.navigation = navigationAdmin;
+
+            // Register the navigation to the service
+            this._fuseNavigationService.register('main', this.navigation);
+
+            // Set the main navigation as our current navigation
+            this._fuseNavigationService.setCurrentNavigation('main');
+        }
+        else
+        {
+            this.changeNavigation(userRole);
+        }
     }
 }

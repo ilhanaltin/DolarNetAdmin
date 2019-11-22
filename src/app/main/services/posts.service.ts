@@ -72,7 +72,7 @@ export class PostsService implements Resolve<any>
         let myParams = new HttpParams()
                 .append('ItemCount', this.pagingVM.pageItemCount.toString())
                 .append('PageId', this.pagingVM.currentPage.toString())
-                .append('RoleId', "-1");
+                .append('CategoryId', "-1");
                     
         return new Promise((resolve, reject) => {
             this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.Blog.GetAll, myParams)

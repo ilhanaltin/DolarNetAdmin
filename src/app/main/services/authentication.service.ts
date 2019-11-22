@@ -1,3 +1,4 @@
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 import { Router } from '@angular/router';
 import { UserVM } from './../models/user/UserVM';
 import { Injectable } from '@angular/core';
@@ -59,6 +60,15 @@ export class AuthenticationService {
     let token = localStorage.getItem('token');
 
     return token != null && !this.helper.isTokenExpired(token);
+  }
+
+  isAdmin()
+  {
+    let user = JSON.parse(localStorage.getItem('current-user')) as UserVM;
+
+    if(!user) return false;
+
+    return user.roleId === GlobalConstants.UserRoles.Admin;
   }
 
   get currentUserFromJwt()

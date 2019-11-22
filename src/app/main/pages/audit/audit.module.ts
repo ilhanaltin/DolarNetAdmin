@@ -1,3 +1,4 @@
+import { AuthGuardAdmin } from './../../services/auth-guard-admin.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthGuard } from './../../services/auth-guard.service';
@@ -28,7 +29,7 @@ const routes: Routes = [
     {
         path     : 'audit',
         component: AuditComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AuthGuardAdmin],
         resolve  : { audit: AuditService }
     }
 ];
@@ -63,7 +64,10 @@ const routes: Routes = [
         FuseSidebarModule
     ],
     providers      : [
-        AuditService
+        AuditService,
+
+        AuthGuard,
+        AuthGuardAdmin
     ],
     entryComponents: [
         AuditDetailsFormDialogComponent

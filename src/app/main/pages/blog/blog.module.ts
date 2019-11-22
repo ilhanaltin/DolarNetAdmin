@@ -23,11 +23,13 @@ import { PostsComponent } from './posts/posts.component';
 import { PostsService } from '../../services/posts.service';
 import { PostComponent } from './post/post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { AuthGuard } from 'app/main/services/auth-guard.service';
 
 const routes: Routes = [
     {
         path     : 'posts',
         component: PostsComponent,
+        canActivate: [AuthGuard],
         resolve  : {
             data: PostsService
         }
@@ -35,6 +37,7 @@ const routes: Routes = [
     {
         path     : 'posts/:id',
         component: PostComponent,
+        canActivate: [AuthGuard],
         resolve  : {
             data: PostService
         }
@@ -75,7 +78,9 @@ const routes: Routes = [
     ],
     providers   : [
         PostsService,
-        PostService
+        PostService,
+
+        AuthGuard
     ]
 })
 export class BlogModule
