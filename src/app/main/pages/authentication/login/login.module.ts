@@ -1,4 +1,3 @@
-import { AuthGuard } from './../../../services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, CanActivate } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';

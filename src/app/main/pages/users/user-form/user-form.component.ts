@@ -103,8 +103,15 @@ export class UsersUserFormDialogComponent
             reader.readAsDataURL(file);
             reader.onload = () => {
                 this.userForm.get('avatar').setValue(reader.result as string);
-                this.editUser.avatar = reader.result;
-                localStorage.setItem("current-user-avatar", reader.result as string);
+                
+                if ( this.action === 'edit' )
+                {
+                    this.editUser.avatar = reader.result;
+                }
+                else
+                {
+                    this.registerUser.avatar = reader.result;
+                }
             };
         }
       }

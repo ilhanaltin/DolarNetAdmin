@@ -3,7 +3,7 @@ export class RegisterUserVM
     name: string;
     lastName: string;
     nickName: string;
-    avatar: string;
+    avatar: any;
     email: string;
     password: string;
     passwordConfirm: string;

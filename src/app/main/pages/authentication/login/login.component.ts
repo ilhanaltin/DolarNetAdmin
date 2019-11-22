@@ -6,9 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
-import { UserVM } from 'app/main/models/user/UserVM';
 import { Router } from '@angular/router';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 
 @Component({
     selector     : 'login',

@@ -51,6 +51,7 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     localStorage.removeItem('current-user');
     localStorage.removeItem('current-user-avatar');
+    localStorage.removeItem('current-user-role');
 
     this._router.navigate(['/login']);
   }
@@ -92,6 +93,8 @@ export class AuthenticationService {
   get avatar()
   {
     let avatar = localStorage.getItem('current-user-avatar');
+
+    if(!avatar) return "assets/images/avatars/profile.jpg";
 
     return avatar;
   }
