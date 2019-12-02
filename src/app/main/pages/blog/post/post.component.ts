@@ -27,6 +27,7 @@ export class PostComponent implements OnInit, OnDestroy
     postForm: FormGroup;
     categoryList = [];
     statusList = [];
+    imageChanged: boolean;
 
     public Editor = ClassicEditor;
 
@@ -50,6 +51,7 @@ export class PostComponent implements OnInit, OnDestroy
     {
         // Set the default
         this.post = new PostVM({});
+        this.imageChanged = false;
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -116,7 +118,8 @@ export class PostComponent implements OnInit, OnDestroy
             content         : [this.post.content, Validators.required],
             authorId        : [currentUser.id],
             categoryTypeId  : [this.post.categoryTypeId, Validators.required],
-            statusTypeId    : [this.post.statusTypeId, Validators.required]
+            statusTypeId    : [this.post.statusTypeId, Validators.required],
+            mainImage       : [this.post.mainImage]
         });
     }
 
@@ -164,6 +167,20 @@ export class PostComponent implements OnInit, OnDestroy
                 this._location.go('main/pages/blog/posts/' + this.post.id);
             });
     }
+
+    onFileChanged(event) {
+
+        let reader = new FileReader();
+        if(event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.postForm.get('mainImage').setValue(reader.result as string);
+                this.post.mainImage = reader.result;
+                this.imageChanged = true;
+            };
+        }
+      }
 
     getCategoryList() {
         return [

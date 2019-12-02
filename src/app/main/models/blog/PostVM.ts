@@ -17,6 +17,7 @@ export class PostVM
     commentCount: number;
     comments: PostCommentVM;
     votes: PostVotesVM;
+    mainImage: any;
 
     /**
      * Constructor
@@ -40,6 +41,7 @@ export class PostVM
             this.commentCount = post.roleName || 0;
             this.comments = post.comments || [];
             this.votes = post.votes || [];
+            this.mainImage = post.mainImage || '';
         }
     }
 }

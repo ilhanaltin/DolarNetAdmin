@@ -41,7 +41,7 @@
 
             <button mat-raised-button
                     class="save-post-button"
-                    [disabled]="postForm.invalid || postForm.pristine"
+                    [disabled]="postForm.invalid || (postForm.pristine && !imageChanged)"
                     *ngIf="pageType ==='edit'" (click)="savePost()">
                 <span>KAYDET</span>
             </button>
@@ -54,55 +54,75 @@
             <!-- CONTENT -->
             <div class="content">
 
-                <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
-                    <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
-                        fxFlex="1 0 auto" name="postForm" [formGroup]="postForm">
+                <mat-tab-group>
+                        <mat-tab label="Yazı Detayı">
+                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+                                <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
+                                    fxFlex="1 0 auto" name="postForm" [formGroup]="postForm">
 
-                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                            <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
-                                    <mat-label>Yazı Başlığı</mat-label>
-                                    <input matInput placeholder="Yazı Başlığı"
-                                            name="title"
-                                            formControlName="title"
-                                            required>
-                                </mat-form-field>
-            
-                        </div>
-        
-                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-        
-                            <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
-                                <mat-label>Kategori</mat-label>
-                                <mat-select formControlName="categoryTypeId" required>
-                                    <mat-option *ngFor="let category of categoryList; let j = index" [value]="categoryList[j].id">
-                                        {{category.name}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="postForm.get('categoryTypeId').hasError('required')">
-                                    Lütfen kategori seçiniz
-                                </mat-error>
-                            </mat-form-field>                
+                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
+                                                <mat-label>Yazı Başlığı</mat-label>
+                                                <input matInput placeholder="Yazı Başlığı"
+                                                        name="title"
+                                                        formControlName="title"
+                                                        required>
+                                            </mat-form-field>
+                        
+                                    </div>
+                    
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    
+                                        <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
+                                            <mat-label>Kategori</mat-label>
+                                            <mat-select formControlName="categoryTypeId" required>
+                                                <mat-option *ngFor="let category of categoryList; let j = index" [value]="categoryList[j].id">
+                                                    {{category.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="postForm.get('categoryTypeId').hasError('required')">
+                                                Lütfen kategori seçiniz
+                                            </mat-error>
+                                        </mat-form-field>                
 
-                            <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
-                                <mat-label>Durum</mat-label>
-                                <mat-select formControlName="statusTypeId" required>
-                                    <mat-option *ngFor="let status of statusList; let j = index" [value]="statusList[j].id">
-                                        {{status.name}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="postForm.get('statusTypeId').hasError('required')">
-                                    Lütfen durum seçiniz
-                                </mat-error>
-                            </mat-form-field>  
-        
-                        </div>
+                                        <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
+                                            <mat-label>Durum</mat-label>
+                                            <mat-select formControlName="statusTypeId" required>
+                                                <mat-option *ngFor="let status of statusList; let j = index" [value]="statusList[j].id">
+                                                    {{status.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="postForm.get('statusTypeId').hasError('required')">
+                                                Lütfen durum seçiniz
+                                            </mat-error>
+                                        </mat-form-field>  
+                    
+                                    </div>
 
-                        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                <ckeditor [editor]="Editor" formControlName="content"></ckeditor>                    
-                        </div>
-                    </form>
-                </div>
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                            <ckeditor [editor]="Editor" formControlName="content"></ckeditor>                    
+                                    </div>
+                                </form>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Resim">
+                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">                                    <input
+                                    style="display: none"
+                                    type="file" (change)="onFileChanged($event)"
+                                    #fileInput>
+                                <button mat-mini-fab
+                                    color="warn"
+                                    (click)="fileInput.click()"
+                                    aria-label="Resim ekle">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+                                <img *ngIf="post.mainImage !='' && post.mainImage != null" [src]="post.mainImage" [alt]="post.title"/> 
+                            </div>
+                        </mat-tab>
+                </mat-tab-group>
 
             </div>
             <!-- / CONTENT -->
