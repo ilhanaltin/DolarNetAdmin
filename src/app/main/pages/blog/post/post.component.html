@@ -56,7 +56,7 @@
 
                 <mat-tab-group>
                         <mat-tab label="Yazı Detayı">
-                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" fxFlex="100">
                                 <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
                                     fxFlex="1 0 auto" name="postForm" [formGroup]="postForm">
 
@@ -100,8 +100,24 @@
                     
                                     </div>
 
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" fxFlex="50">
+                                            <mat-label>Yayın Tarihi</mat-label>
+                                            <input matInput [matDatepicker]="birthdayDatePicker" 
+                                                name="publishDate" 
+                                                formControlName="publishDate"
+                                                required>
+                                            <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #birthdayDatePicker></mat-datepicker>
+                                        </mat-form-field>
+
+                                        <mat-checkbox class="mat-check" aria-label="Sliderda Görünsün mü?" formControlName="isSliderPost">
+                                            Sliderda Görünsün mü
+                                        </mat-checkbox>
+                                    </div>
+
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                            <ckeditor [editor]="Editor" formControlName="content"></ckeditor>                    
+                                        <ckeditor [editor]="Editor" formControlName="content" fxFlex="100"></ckeditor>                    
                                     </div>
                                 </form>
                             </div>

@@ -1,4 +1,4 @@
-import { PostCommentVM } from './PostCommentVM';
+import { PostCommentsVM } from './PostCommentsVM';
 import { PostVotesVM } from './PostVotesVM';
 
 export class PostVM
@@ -9,13 +9,15 @@ export class PostVM
     authorName: string;
     authorNickName: string;
     content: string;
+    publishDate: Date;
+    isSliderPost: boolean;
     categoryTypeId: number;
     categoryTypeName: string;
     statusTypeId: number;
     statusTypeName: string;
     likeCount: number;
     commentCount: number;
-    comments: PostCommentVM;
+    comments: PostCommentsVM;
     votes: PostVotesVM;
     mainImage: any;
 
@@ -42,6 +44,8 @@ export class PostVM
             this.comments = post.comments || [];
             this.votes = post.votes || [];
             this.mainImage = post.mainImage || '';
+            this.publishDate = post.publishDate || '';
+            this.isSliderPost = post.isSliderPost || false;
         }
     }
 }

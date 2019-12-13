@@ -1,8 +1,9 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +25,7 @@ import { PostsService } from '../../services/posts.service';
 import { PostComponent } from './post/post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AuthGuard } from 'app/main/services/auth-guard.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const routes: Routes = [
     {
@@ -65,6 +67,8 @@ const routes: Routes = [
         MatSnackBarModule,
         MatTableModule,
         MatTabsModule,
+        MatDatepickerModule,
+        MatCheckboxModule,
         
         CKEditorModule,
 
@@ -80,7 +84,8 @@ const routes: Routes = [
         PostsService,
         PostService,
 
-        AuthGuard
+        AuthGuard,
+        {provide: MAT_DATE_LOCALE, useValue: 'tr-TR'}
     ]
 })
 export class BlogModule

@@ -117,6 +117,8 @@ export class PostComponent implements OnInit, OnDestroy
             title           : [this.post.title, Validators.required],
             content         : [this.post.content, Validators.required],
             authorId        : [currentUser.id],
+            publishDate     : [this.post.publishDate],
+            isSliderPost    : [this.post.isSliderPost],
             categoryTypeId  : [this.post.categoryTypeId, Validators.required],
             statusTypeId    : [this.post.statusTypeId, Validators.required],
             mainImage       : [this.post.mainImage]

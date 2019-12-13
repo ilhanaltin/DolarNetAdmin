@@ -1,4 +1,4 @@
-export class PostCommentVM
+export class PostCommentsVM
 {
     userId: number;
     userName: string;
