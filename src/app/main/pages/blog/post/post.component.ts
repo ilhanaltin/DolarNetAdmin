@@ -119,7 +119,7 @@ export class PostComponent implements OnInit, OnDestroy
             authorId        : [currentUser.id],
             publishDate     : [this.post.publishDate],
             isSliderPost    : [this.post.isSliderPost],
-            categoryTypeId  : [this.post.categoryTypeId, Validators.required],
+            categoryIds     : [this.post.categoryIds, Validators.required],
             statusTypeId    : [this.post.statusTypeId, Validators.required],
             mainImage       : [this.post.mainImage]
         });
@@ -132,6 +132,8 @@ export class PostComponent implements OnInit, OnDestroy
     {
         const data = this.postForm.getRawValue();
 
+        console.log(data);
+        
         this._postService.savePost(data)
             .then(() => {
 

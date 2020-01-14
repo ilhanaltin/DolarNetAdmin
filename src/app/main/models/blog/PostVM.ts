@@ -11,8 +11,8 @@ export class PostVM
     content: string;
     publishDate: Date;
     isSliderPost: boolean;
-    categoryTypeId: number;
-    categoryTypeName: string;
+    categoryIds: number[];
+    categoryNames: string;
     statusTypeId: number;
     statusTypeName: string;
     likeCount: number;
@@ -35,8 +35,8 @@ export class PostVM
             this.authorName = post.authorName || '';
             this.authorNickName = post.authorNickName || '';
             this.content = post.content || '';
-            this.categoryTypeId = post.categoryTypeId || 0;
-            this.categoryTypeName = post.categoryTypeName || '';
+            this.categoryIds = post.categoryIds || null;
+            this.categoryNames = post.categoryNames || '';
             this.statusTypeId = post.statusTypeId || 1;
             this.statusTypeName = post.statusTypeName || '';
             this.likeCount = post.likeCount || 0;
