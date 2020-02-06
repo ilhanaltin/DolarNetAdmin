@@ -22,7 +22,7 @@ export class UserVM
             this.id = user.id || 0;
             this.name = user.name || '';
             this.lastName = user.lastName || '';
-            this.avatar = user.avatar || 'assets/images/avatars/profile.jpg';
+            this.avatar = user.avatar || 'Images/Profile/profile-empty.jpg';
             this.nickName = user.nickName || '';
             this.email = user.email || '';
             this.statusId = user.statusId || '';
