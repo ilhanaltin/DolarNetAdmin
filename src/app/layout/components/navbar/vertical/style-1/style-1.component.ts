@@ -38,7 +38,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _router: Router,
-        private _authenticationService: AuthenticationService
+        public _authenticationService: AuthenticationService
     )
     {
         // Set the private defaults

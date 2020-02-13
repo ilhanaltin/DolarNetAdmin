@@ -12,6 +12,8 @@ import { FuseUtils } from '@fuse/utils';
 import { PostService } from 'app/main/services/post.service';
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { TypeVM } from 'app/main/models/TypeVM';
+import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 
 @Component({
     selector     : 'blog-post',
@@ -25,9 +27,11 @@ export class PostComponent implements OnInit, OnDestroy
     post: PostVM;
     pageType: string;
     postForm: FormGroup;
-    categoryList = [];
-    statusList = [];
+    categoryList: TypeVM[];
+    statusList : TypeVM[];
     imageChanged: boolean;
+
+    readonly _globalConstants = GlobalConstants;
 
     public Editor = ClassicEditor;
 
@@ -121,7 +125,8 @@ export class PostComponent implements OnInit, OnDestroy
             isSliderPost    : [this.post.isSliderPost],
             categoryIds     : [this.post.categoryIds, Validators.required],
             statusTypeId    : [this.post.statusTypeId, Validators.required],
-            mainImage       : [this.post.mainImage]
+            mainImage       : [this.post.mainImage],
+            imagePath       : [this.post.imagePath]
         });
     }
 
@@ -186,22 +191,29 @@ export class PostComponent implements OnInit, OnDestroy
         }
       }
 
-    getCategoryList() {
-        return [
-            { id: 1, name: "Döviz" },
-            { id: 2, name: "Altın" },
-            { id: 3, name: "Pariteler" },
-            { id: 4, name: "Kripto" },
-            { id: 5, name: "Paralar" },
-            { id: 6, name: "Borsa" },
-            { id: 7, name: "Gündem" }
-        ];
+      getCategoryList() {
+        let categoryArray: TypeVM[] = [];
+    
+        GlobalConstants.PostCategories.forEach(function(value, index){
+          let category = new TypeVM();
+          category.adi = value;
+          category.id = index + 1;
+          categoryArray.push(category);
+       });
+    
+        return categoryArray;
       }
 
       getStatusList() {
-        return [
-            { id: 1, name: "Taslak" },
-            { id: 2, name: "Yayınlandı" }
-        ];
+        let statusArray: TypeVM[] = [];
+    
+        GlobalConstants.PostCategories.forEach(function(value, index){
+          let status = new TypeVM();
+          status.adi = value;
+          status.id = index + 1;
+          statusArray.push(status);
+       });
+    
+        return statusArray;
       }
 }

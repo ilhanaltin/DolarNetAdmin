@@ -24,7 +24,7 @@ export class UsersMainSidebarComponent implements OnInit, OnDestroy
      * @param {UsersService} _usersService
      * @param {AuthenticationService} _authenticationService
      */
-    constructor(private _usersService: UsersService, private _authenticationService: AuthenticationService)
+    constructor(private _usersService: UsersService, public _authenticationService: AuthenticationService)
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();

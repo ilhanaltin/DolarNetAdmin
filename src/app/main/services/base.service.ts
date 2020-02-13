@@ -13,11 +13,11 @@ export class BaseService {
 
   constructor(private httpClient: HttpClient) { }
 
-  post<T>(url: string, postValue: any, allowAnonymous: boolean = false) : Observable<ServiceResult<T>>
+  post<T>(url: string, postValue: any) : Observable<ServiceResult<T>>
   {
-    let headerWithToken = this.headers.set("Authorization", "Bearer " + localStorage.getItem("token"));  
+    let headerWithToken = this.headers.set("Authorization", localStorage.getItem("token") == null ? "" : "Bearer " + localStorage.getItem("token"));  
 
-    let options = { headers: allowAnonymous ? this.headers: headerWithToken };
+    let options = { headers: headerWithToken };
 
     return this.httpClient.post(url, JSON.stringify(postValue),  options)
     .pipe(
@@ -26,13 +26,13 @@ export class BaseService {
       }));
   }
 
-  get<T>(url: string, myParams: HttpParams = null, allowAnonymous: boolean = false)
+  get<T>(url: string, myParams: HttpParams = null)
   {
-    let headerWithToken = this.headers.set("Authorization", "Bearer " + localStorage.getItem("token"));  
+    let headerWithToken = this.headers.set("Authorization", localStorage.getItem("token") == null ? "" : "Bearer " + localStorage.getItem("token"));  
 
     let options = myParams == null ? 
-          { headers: allowAnonymous ? this.headers: headerWithToken} : 
-              { headers: allowAnonymous ? this.headers: headerWithToken, params: myParams};
+          { headers: headerWithToken } : 
+              { headers: headerWithToken , params: myParams};
 
     return this.httpClient.get<ServiceResult<T>>(url, options)
     .pipe(
@@ -44,11 +44,11 @@ export class BaseService {
       }));
   }
 
-  getWithNoParameter<T>(url: string, allowAnonymous: boolean = false)
+  getWithNoParameter<T>(url: string)
   {
-    let headerWithToken = this.headers.set("Authorization", "Bearer " + localStorage.getItem("token"));  
+    let headerWithToken = this.headers.set("Authorization", localStorage.getItem("token") == null ? "" : "Bearer " + localStorage.getItem("token"));  
 
-    let options = { headers: allowAnonymous ? this.headers: headerWithToken};
+    let options = { headers: headerWithToken};
 
     return this.httpClient.get<ServiceResult<T>>(url, options)
     .pipe(
@@ -60,11 +60,11 @@ export class BaseService {
       }));
   }
 
-  delete<T>(url: string, myParams: HttpParams, allowAnonymous: boolean = false)
+  delete<T>(url: string, myParams: HttpParams)
   {       
-    let headerWithToken = this.headers.set("Authorization", "Bearer " + localStorage.getItem("token"));  
+    let headerWithToken = this.headers.set("Authorization", localStorage.getItem("token") == null ? "" : "Bearer " + localStorage.getItem("token"));  
 
-    let options = { headers: allowAnonymous ? this.headers: headerWithToken, params: myParams};
+    let options = { headers: headerWithToken, params: myParams};
 
     return this.httpClient.delete<ServiceResult<T>>(url, options)
       .pipe(

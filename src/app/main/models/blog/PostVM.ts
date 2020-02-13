@@ -19,7 +19,8 @@ export class PostVM
     commentCount: number;
     comments: PostCommentsVM;
     votes: PostVotesVM;
-    mainImage: any;
+    mainImage: any
+    imagePath: string;
 
     /**
      * Constructor
@@ -44,6 +45,7 @@ export class PostVM
             this.comments = post.comments || [];
             this.votes = post.votes || [];
             this.mainImage = post.mainImage || '';
+            this.imagePath = post.imagePath || '';
             this.publishDate = post.publishDate || '';
             this.isSliderPost = post.isSliderPost || false;
         }

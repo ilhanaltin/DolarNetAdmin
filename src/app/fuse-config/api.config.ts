@@ -3,44 +3,8 @@ export const apiConfig = {
     {
       Main:
       {
-        Url: "https://localhost:44366/api/"
-      },
-      Currency:
-      {
-        Url: "http://data.fixer.io/api/",
-        Endpoint: 
-        {
-          Latest: "latest",
-          Convert: "convert"
-        },
-        AccessKey: "07956779c4a73384f694471deba9610e"
-      },
-      Coin:
-      {
-        Url: "https://bravenewcoin-v1.p.rapidapi.com/",
-        Endpoint:
-        {
-          Endpoint_ticker: "ticker",
-          Endpoint_convert: "convert",
-          Endpoint_prices: "prices"
-        },
-        Header:
-        {
-          Header_Host: "X-RapidAPI-Host",
-          Header_Host_Value: "bravenewcoin-v1.p.rapidapi.com",
-          Header_Key: "X-RapidAPI-Key",
-          Header_Key_Value: "c370cca97fmshece299f1dfe9bebp126464jsnc72cc0a06b0d"
-        }
-      }
-    },
-    SessionKeys:
-    {
-      Currency:{
-        CurrencyDataHistoricalYesterday: "CurrencyDataHistoricalYesterday",
-        CurrencyDataRefreshedPeriodically: "CurrencyDataRefreshedPeriodically"
-      },
-      Coin:{
-        CoinTickersData: "CoinTickersData"
+        Url: "https://api-dolar.com/api/"
+        //Url: "https://localhost:44366/api/"
       }
     },
     Services:

@@ -30,7 +30,7 @@ export class AuthenticationService {
     
     return this._baseService.post<LoginResponseDetailsVM>(apiConfig.Api.Main.Url 
       + apiConfig.Services.User.Authenticate, 
-        credentials, false)
+        credentials)
         .pipe(
           map(response => {
             if(response.status == 200)
