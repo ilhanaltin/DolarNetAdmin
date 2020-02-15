@@ -1,5 +1,5 @@
 export const GlobalConstants = {
-    siteUrl: "https://api-dolar.com/",
+    siteUrl: "https://api.dolar.net/",
     UserRoles: {
              Admin: 1,
              Editor: 2,
