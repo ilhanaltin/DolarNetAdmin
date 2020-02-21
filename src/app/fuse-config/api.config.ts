@@ -34,7 +34,7 @@ export const apiConfig = {
         },
         Blog:
         {
-          GetAll: "Blog",
+          GetAll: "Blog/GetForAdmin",
           GetById: "Blog/GetById",
           Post: "Blog",
           Delete: "Blog"
