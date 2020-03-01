@@ -207,7 +207,7 @@ export class PostComponent implements OnInit, OnDestroy
       getStatusList() {
         let statusArray: TypeVM[] = [];
     
-        GlobalConstants.PostCategories.forEach(function(value, index){
+        GlobalConstants.PostStatus.forEach(function(value, index){
           let status = new TypeVM();
           status.adi = value;
           status.id = index + 1;

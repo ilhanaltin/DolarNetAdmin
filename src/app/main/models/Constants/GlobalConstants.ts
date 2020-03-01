@@ -11,6 +11,6 @@ export const GlobalConstants = {
         DbOperation: 3
     },
     PostCategories: ['Döviz','Altın','Kripto Paralar','Gündem','Borsa','Emtia','En Son','En Popüler',
-    'Ekonomik İndikatörler', 'Ekonomi', 'Dünya', 'Türkiye'],
+    'Ekonomik İndikatörler', 'Ekonomi', 'Dünya', 'Türkiye', 'Blog'],
     PostStatus: ['Taslak', 'Yayınlandı']
 };
