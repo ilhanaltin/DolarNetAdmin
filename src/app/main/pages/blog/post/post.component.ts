@@ -164,7 +164,7 @@ export class PostComponent implements OnInit, OnDestroy
             .then(() => {
 
                 // Trigger the subscription with new data
-                this._postService.onPostChanged.next(data);
+                //this._postService.onPostChanged.next(data);
 
                 // Show the success message
                 this._matSnackBar.open('Yazı eklendi', 'OK', {
