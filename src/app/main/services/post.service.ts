@@ -89,8 +89,6 @@ export class PostService implements Resolve<any>
      */
     savePost(post): Promise<any>
     {
-        console.log(post);
-
         return new Promise((resolve, reject) => {
             this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.Blog.Post, post)
                 .subscribe((response: any) => {

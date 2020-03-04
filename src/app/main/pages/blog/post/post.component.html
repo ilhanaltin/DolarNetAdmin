@@ -138,7 +138,8 @@
                                 </button>
                             </div>
                             <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
-                                <img [src]="getImage()"/> 
+                                <img *ngIf="post.mainImage !='' && post.mainImage != null" [src]="post.mainImage" [alt]="post.title"/> 
+                                <img *ngIf="post.imagePath !='' && post.imagePath != null" [src]="post.imagePath" [alt]="post.title"/> 
                             </div>
                         </mat-tab>
                 </mat-tab-group>

@@ -163,7 +163,6 @@ export class UsersUserListComponent implements OnInit, OnDestroy
                      */
                     case 'save':
 
-                        console.log(formData.getRawValue());
                         this._usersService.updateUser(formData.getRawValue());
 
                         break;

@@ -137,8 +137,6 @@ export class PostComponent implements OnInit, OnDestroy
     {
         const data = this.postForm.getRawValue();
 
-        console.log(data);
-        
         this._postService.savePost(data)
             .then(() => {
 
@@ -221,6 +219,6 @@ export class PostComponent implements OnInit, OnDestroy
 
       getImage()
       {
-          return (this.post.imagePath === '' || this.post.imagePath == null) ? this.post.mainImage : this.post.imagePath; 
+          return (this.post.mainImage === '' || this.post.mainImage == null) ? this.post.imagePath : this.post.mainImage; 
       }
 }
