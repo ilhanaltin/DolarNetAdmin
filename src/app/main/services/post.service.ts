@@ -94,6 +94,9 @@ export class PostService implements Resolve<any>
         return new Promise((resolve, reject) => {
             this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.Blog.Post, post)
                 .subscribe((response: any) => {
+                    let result = response as ServiceResult<PostResponseDetailsVM>;
+                    this.post = result.result.post;
+                    this.onPostChanged.next(this.post);
                     resolve(response);
                 }, reject);
         });

@@ -172,8 +172,10 @@ export class PostComponent implements OnInit, OnDestroy
                     duration        : 2000
                 });
 
+                this.pageType = "edit";
+
                 // Change the location with new one
-                this._location.go('main/pages/blog/posts/' + this.post.id);
+                //this._location.go('main/pages/blog/posts/' + this.post.id);
             });
     }
 
