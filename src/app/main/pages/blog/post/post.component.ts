@@ -218,4 +218,9 @@ export class PostComponent implements OnInit, OnDestroy
     
         return statusArray;
       }
+
+      getImage()
+      {
+          return (this.post.imagePath === '' || this.post.imagePath == null) ? this.post.mainImage : this.post.imagePath; 
+      }
 }
