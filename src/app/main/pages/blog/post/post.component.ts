@@ -119,6 +119,8 @@ export class PostComponent implements OnInit, OnDestroy
         return this._formBuilder.group({
             id              : [this.post.id],
             title           : [this.post.title, Validators.required],
+            longTitle       : [this.post.longTitle, Validators.required],
+            tags            : [this.post.tags],
             content         : [this.post.content, Validators.required],
             authorId        : [currentUser.id],
             publishDate     : [this.post.publishDate],

@@ -73,6 +73,18 @@
                                             </mat-form-field>
                         
                                     </div>
+
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
+                                                <mat-label>Uzun Başlık</mat-label>
+                                                <input matInput placeholder="Yazı Başlığı"
+                                                        name="title"
+                                                        formControlName="longTitle"
+                                                        required>
+                                            </mat-form-field>
+                        
+                                    </div>
                     
                                     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     
@@ -118,6 +130,30 @@
                                         </mat-checkbox>
                                     </div>
 
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+                                            <mat-label>Etiketler</mat-label>
+        
+                                            <mat-chip-list #tagList name="tags" formControlName="tags">
+        
+                                                <mat-chip *ngFor="let tag of post.tags"
+                                                          [removable]="true" (removed)="post.removeTag(tag); postForm.get('tags').markAsDirty();">
+                                                    {{tag}}
+                                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                                </mat-chip>
+        
+                                                <input [matChipInputFor]="tagList"
+                                                       [matChipInputAddOnBlur]="true"
+                                                       (matChipInputTokenEnd)="post.addTag($event); postForm.get('tags').markAsDirty();"/>
+        
+                                            </mat-chip-list>
+        
+                                        </mat-form-field>
+    
+                                    </div>
+
+                                    
                                     <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                                         <ckeditor [editor]="Editor" formControlName="content" fxFlex="100"></ckeditor>                    
                                     </div>
