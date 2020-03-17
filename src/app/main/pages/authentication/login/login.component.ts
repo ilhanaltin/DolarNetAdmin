@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
+import { ServiceResult } from 'app/main/models/ServiceResult';
+import { LoginResponseDetailsVM } from 'app/main/models/authentication/LoginResponseDetailsVM';
 
 @Component({
     selector     : 'login',
@@ -20,6 +22,8 @@ export class LoginComponent implements OnInit
     loginForm: FormGroup;
     invalidLogin: boolean;
 
+    _result: ServiceResult<LoginResponseDetailsVM>;
+ 
     /**
      * Constructor
      *
@@ -67,14 +71,17 @@ export class LoginComponent implements OnInit
     {
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
+            fromAdmin: [true]
         });
     }
 
     login(credentials) : void {
         this._authenticationService.login(credentials)
             .subscribe(result =>{
-                if(result)
+
+                this._result = result;
+                if(result.status == 200)
                 {
                     let role = Number(localStorage.getItem("current-user-role"));
                     this._appComponent.changeNavigation(role);

@@ -30,9 +30,9 @@
 
             <form name="loginForm" [formGroup]="loginForm" novalidate>
                 <mat-error *ngIf="invalidLogin">
-                    Kullanıcı adınız ve/veya şifreniz hatalı. 
+                    {{_result.messages.length > 0 ? _result.messages[0] : "Hatalı giriş. Lütfen kullanıcı adınızı ve/veya şifrenizi kontrol ediniz."}}
                 </mat-error>
-                
+
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
