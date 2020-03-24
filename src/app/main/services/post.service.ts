@@ -67,7 +67,8 @@ export class PostService implements Resolve<any>
             else
             {
                 let myParams = new HttpParams()
-                    .append('id', this.routeParams.id);
+                    .append('id', this.routeParams.id)
+                    .append('FromAdmin', "true");
 
                 this._baseService.get(apiConfig.Api.Main.Url + apiConfig.Services.Blog.GetById, myParams)
                     .subscribe((response: any) => {

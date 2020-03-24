@@ -20,7 +20,7 @@ import { PostsService } from '../../../services/posts.service';
 export class PostsComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName'];
+    displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks'];
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;

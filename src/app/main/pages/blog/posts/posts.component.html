@@ -105,25 +105,15 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Like Count Column -->
-                <ng-container matColumnDef="likeCount">
-                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Beğeni Sayısı</mat-header-cell>
+                <!-- Feedback Column -->
+                <ng-container matColumnDef="feedbacks">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Yorum/Okunma</mat-header-cell>
                     <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
                         <p class="category text-truncate">
-                            {{post.likeCount}}
+                            Yorum: {{post.commentCount}} - Okunma: {{post.readCount}}
                         </p>
                     </mat-cell>
-                </ng-container>
-
-                <!-- Comment Count Column -->
-                <ng-container matColumnDef="commentCount">
-                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Yorum Sayısı</mat-header-cell>
-                    <mat-cell *matCellDef="let post" fxHide fxShow.gt-md>
-                        <p class="category text-truncate">
-                            {{post.commentCount}}
-                        </p>
-                    </mat-cell>
-                </ng-container>
+                </ng-container>               
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
 

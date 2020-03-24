@@ -20,6 +20,7 @@ export class PostVM
     statusTypeName: string;
     likeCount: number;
     commentCount: number;
+    readCount: number;
     comments: PostCommentsVM;
     votes: PostVotesVM;
     mainImage: any
@@ -45,7 +46,8 @@ export class PostVM
         this.statusTypeId = post.statusTypeId || 1;
         this.statusTypeName = post.statusTypeName || '';
         this.likeCount = post.likeCount || 0;
-        this.commentCount = post.roleName || 0;
+        this.commentCount = post.commentCount || 0;
+        this.readCount = post.readCount || 0;
         this.comments = post.comments || [];
         this.votes = post.votes || [];
         this.mainImage = post.mainImage || '';
