@@ -115,6 +115,28 @@
                     </mat-cell>
                 </ng-container>               
 
+                <!-- Buttons Column -->
+                <ng-container matColumnDef="buttons">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let post">
+                            <div fxFlex="row" fxLayoutAlign="end center">
+                                
+                                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                        (click)="$event.stopPropagation();">
+                                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                                </button>
+
+                                <mat-menu #moreMenu="matMenu">
+                                    <button mat-menu-item aria-label="remove" (click)="deletePost(post)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Sil</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+
+                        </mat-cell>
+                </ng-container>
+
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
 
                 <mat-row *matRowDef="let post; columns: displayedColumns;"

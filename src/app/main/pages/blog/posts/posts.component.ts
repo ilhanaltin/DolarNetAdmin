@@ -9,6 +9,9 @@ import { FuseUtils } from '@fuse/utils';
 
 import { takeUntil } from 'rxjs/internal/operators';
 import { PostsService } from '../../../services/posts.service';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector     : 'blog-posts',
@@ -20,19 +23,25 @@ import { PostsService } from '../../../services/posts.service';
 export class PostsComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks'];
+    displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks', "buttons"];
 
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+    
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
 
     @ViewChild('filter', {static: true})
     filter: ElementRef;
 
+    @ViewChild(MatSort, {static: true})
+    sort: MatSort;
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _postsService: PostsService
+        private _postsService: PostsService,
+        public _matDialog: MatDialog
     )
     {
         // Set the private defaults
@@ -48,7 +57,7 @@ export class PostsComponent implements OnInit
      */
     ngOnInit(): void
     {
-        this.dataSource = new FilesDataSource(this._postsService);
+        this.dataSource = new FilesDataSource(this._postsService, this.paginator, this.sort);
 
         fromEvent(this.filter.nativeElement, 'keyup')
             .pipe(
@@ -65,11 +74,37 @@ export class PostsComponent implements OnInit
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
 
-        this._postsService.onPagingCalculated
+       /*  this._postsService.onPagingCalculated
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(paging => {
                 this.dataSource.filteredDataCount = paging.totalCount;
+            }); */
+
+        this._postsService.onPostsChanged
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(posts => {
+                this.dataSource.filteredData = posts;
             });
+    }
+
+    /**
+     * Delete Post
+     */
+    deletePost(post): void
+    {
+        this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
+        });
+
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Silmek istediğinize emin misiniz?';
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if ( result )
+            {
+                this._postsService.deletePost(post);
+            }
+            this.confirmDialogRef = null;
+        });
     }
 
     /**
@@ -96,9 +131,13 @@ export class FilesDataSource extends DataSource<any>
      * Constructor
      *
      * @param {PostsService} _postsService
+     * @param {MatPaginator} _matPaginator
+     * @param {MatSort} _matSort
      */
     constructor(
-        private _postsService: PostsService
+        private _postsService: PostsService,
+        private _matPaginator: MatPaginator,
+        private _matSort: MatSort
     )
     {
         super();
@@ -114,7 +153,30 @@ export class FilesDataSource extends DataSource<any>
      */
     connect(): Observable<any[]>
     {
-        return this._postsService.onPostsChanged;
+        const displayDataChanges = [
+            this._postsService.onPostsChanged,
+            this._matPaginator.page,
+            this._filterChange,
+            this._matSort.sortChange
+        ];
+
+        return merge(...displayDataChanges).pipe(map(() => {
+
+                let data = this._postsService.posts.slice();
+
+                data = this.filterData(data);
+
+                this.filteredData = [...data];
+
+                return data;
+
+                // Grab the page's slice of data.
+                /*const startIndex = this._matPaginator.pageIndex * this._matPaginator.pageSize;
+                return data.splice(startIndex, this._matPaginator.pageSize); */
+            })
+        );
+
+        //return this._postsService.onPostsChanged;
     }
 
     // -----------------------------------------------------------------------------------------------------

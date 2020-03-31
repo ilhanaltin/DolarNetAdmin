@@ -26,6 +26,7 @@ import { PostComponent } from './post/post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AuthGuard } from 'app/main/services/auth-guard.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 
 const routes: Routes = [
     {
@@ -69,6 +70,7 @@ const routes: Routes = [
         MatTabsModule,
         MatDatepickerModule,
         MatCheckboxModule,
+        MatMenuModule,
         
         CKEditorModule,
 

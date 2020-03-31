@@ -89,4 +89,22 @@ export class PostsService implements Resolve<any>
                 }, reject);
         });
     }
+
+    /**
+     * Delete post
+     *
+     * @param post
+     */
+    deletePost(post): void
+    {
+        let myParams = new HttpParams()
+            .append('id', post.id);
+
+        this._baseService.delete(apiConfig.Api.Main.Url + apiConfig.Services.Blog.Delete, myParams)
+        .subscribe(result=>{ });
+
+        const postIndex = this.posts.indexOf(post);
+            this.posts.splice(postIndex, 1);
+            this.onPostsChanged.next(this.posts);
+    }
 }
