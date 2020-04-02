@@ -248,15 +248,12 @@ export class UsersService implements Resolve<any>
      */
     deleteUser(user): void
     {
-        let myParams = new HttpParams()
-            .append('id', user.id);
-
-        this._baseService.delete(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteUser, myParams)
-        .subscribe(result=>{ });
-
-        const userIndex = this.users.indexOf(user);
+        this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteUser, {id: user.id})
+        .subscribe(result=>{
+            const userIndex = this.users.indexOf(user);
             this.users.splice(userIndex, 1);
             this.onUsersChanged.next(this.users);
+         });
     }
 
     /**

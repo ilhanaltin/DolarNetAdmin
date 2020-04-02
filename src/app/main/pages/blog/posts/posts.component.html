@@ -116,7 +116,7 @@
                 </ng-container>               
 
                 <!-- Buttons Column -->
-                <ng-container matColumnDef="buttons">
+                <ng-container matColumnDef="buttons" *ngIf="_authenticationService.isAdmin()">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let post">
                             <div fxFlex="row" fxLayoutAlign="end center">

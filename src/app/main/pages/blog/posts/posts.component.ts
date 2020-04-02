@@ -12,6 +12,7 @@ import { PostsService } from '../../../services/posts.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
+import { AuthenticationService } from 'app/main/services/authentication.service';
 
 @Component({
     selector     : 'blog-posts',
@@ -23,7 +24,8 @@ import { MatSort } from '@angular/material/sort';
 export class PostsComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks', "buttons"];
+
+    displayedColumns: string[];
 
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     
@@ -41,9 +43,19 @@ export class PostsComponent implements OnInit
 
     constructor(
         private _postsService: PostsService,
-        public _matDialog: MatDialog
+        public _matDialog: MatDialog,
+        public _authenticationService: AuthenticationService
     )
     {
+        if(this._authenticationService.isAdmin())
+        {
+            this.displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks', "buttons"];
+        }
+        else
+        {
+            this.displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks'];
+        }
+
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -74,11 +86,11 @@ export class PostsComponent implements OnInit
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
 
-       /*  this._postsService.onPagingCalculated
+        this._postsService.onPagingCalculated
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(paging => {
                 this.dataSource.filteredDataCount = paging.totalCount;
-            }); */
+            }); 
 
         this._postsService.onPostsChanged
             .pipe(takeUntil(this._unsubscribeAll))

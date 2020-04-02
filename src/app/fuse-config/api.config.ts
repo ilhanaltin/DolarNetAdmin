@@ -17,34 +17,15 @@ export const apiConfig = {
           ChangePassword: "User/ChangePassword",
           CheckEmail: "User/CheckEmail",
           GetAllUser: "User",
-          DeleteUser: "User",
+          DeleteUser: "User/Delete",
           GetById: "User/GetById"
-        },
-        Portfolio:
-        {
-          Get: "Portfolio",
-          Post: "Portfolio",
-          Delete: "Portfolio"
-        },
-        Holding:
-        {
-          Get: "Holding",
-          Post: "Holding",
-          Delete: "Holding"
         },
         Blog:
         {
           GetAll: "Blog/GetForAdmin",
           GetById: "Blog/GetById",
           Post: "Blog",
-          Delete: "Blog"
-        },
-        Integration:
-        {
-          GetAll: "Integration",
-          GetById: "Integration/GetById",
-          Post: "Integration",
-          Delete: "Integration"
+          Delete: "Blog/Delete"
         },
         Audit:
         {
