@@ -34,15 +34,15 @@
 
             <button mat-raised-button
                     class="save-post-button"
-                    [disabled]="postForm.invalid"
-                    *ngIf="pageType ==='new'" (click)="addPost()">
+                    [disabled]="postForm.invalid || isClickedOnceAdd"
+                    *ngIf="pageType ==='new'" (click)="addPost(); isClickedOnceAdd = true;">
                 <span>EKLE</span>
             </button>
 
             <button mat-raised-button
                     class="save-post-button"
-                    [disabled]="postForm.invalid || (postForm.pristine && !imageChanged)"
-                    *ngIf="pageType ==='edit'" (click)="savePost()">
+                    [disabled]="isClickedOnceUpdate || postForm.invalid || (postForm.pristine && !imageChanged)"
+                    *ngIf="pageType ==='edit'" (click)="savePost(); isClickedOnceUpdate= true;">
                 <span>KAYDET</span>
             </button>
         </div>

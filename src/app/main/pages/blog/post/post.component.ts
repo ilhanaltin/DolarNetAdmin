@@ -30,6 +30,8 @@ export class PostComponent implements OnInit, OnDestroy
     categoryList: TypeVM[];
     statusList : TypeVM[];
     imageChanged: boolean;
+    isClickedOnceAdd: boolean = false;
+    isClickedOnceUpdate: boolean = false;
 
     readonly _globalConstants = GlobalConstants;
 
@@ -145,6 +147,9 @@ export class PostComponent implements OnInit, OnDestroy
                 // Trigger the subscription with new data
                 this._postService.onPostChanged.next(data);
 
+                this.isClickedOnceUpdate = false;
+                this.imageChanged = false;
+
                 // Show the success message
                 this._matSnackBar.open('Yazı kaydedildi', 'OK', {
                     verticalPosition: 'top',
@@ -173,7 +178,9 @@ export class PostComponent implements OnInit, OnDestroy
                 });
 
                 this.pageType = "edit";
-
+                this.isClickedOnceAdd = false;
+                this.imageChanged = false;
+                
                 // Change the location with new one
                 //this._location.go('main/pages/blog/posts/' + this.post.id);
             });
