@@ -1,0 +1,76 @@
+<div id="file-manager" class="page-layout simple right-sidebar inner-scroll">
+
+    <!-- SIDEBAR -->
+    <fuse-sidebar class="sidebar main-sidebar" name="file-manager-main-sidebar" position="left">
+        <file-manager-main-sidebar></file-manager-main-sidebar>
+    </fuse-sidebar>
+    <!-- / SIDEBAR -->
+
+    <!-- CENTER -->
+    <div class="center" fxFlex>
+
+        <!-- HEADER -->
+        <div class="header accent p-24" fxLayout="column" fxLayoutAlign="space-between start">
+
+
+            <!-- TOOLBAR -->
+            <div class="logo mb-24 mb-md-0" fxFlex fxLayout="row" fxLayoutAlign="start center">
+
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    image
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Medya Dosyaları
+                </span>
+
+               
+            </div>
+            <!-- / TOOLBAR -->
+
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb text-truncate h1 pl-72" fxLayout="row" fxLayoutAlign="start center"
+                 [@animate]="{value:'*',params:{x:'50px'}}">
+                <div *ngFor="let path of pathArr; last  as isLast" fxLayout="row" fxLayoutAlign="start center">
+                    <span>{{path}}</span>
+                    <mat-icon *ngIf="!isLast" class="separator">chevron_right</mat-icon>
+                </div>
+            </div>
+            <!-- / BREADCRUMB -->
+
+            <!-- ADD FILE BUTTON -->
+            <div class="file-uploader">
+                <input hidden 
+                    type="file" 
+                    (change)="onFileChanged($event)"
+                    #fileInput/>
+                <button mat-fab
+                        color="warn"
+                        class="add-file-button"
+                        (click)="fileInput.click()"
+                        aria-label="Dosya Ekle"
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <!-- / ADD FILE BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content" fusePerfectScrollbar>
+            <file-list></file-list>
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+    <!-- SIDEBAR -->
+    <fuse-sidebar class="sidebar details-sidebar" name="file-manager-details-sidebar" position="right"
+                  lockedOpen="gt-md">
+        <file-manager-details-sidebar></file-manager-details-sidebar>
+    </fuse-sidebar>
+    <!-- / SIDEBAR -->
+
+</div>

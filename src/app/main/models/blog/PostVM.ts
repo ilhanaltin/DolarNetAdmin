@@ -23,7 +23,6 @@ export class PostVM
     readCount: number;
     comments: PostCommentsVM;
     votes: PostVotesVM;
-    mainImage: any
     imagePath: string;
 
     /**
@@ -50,7 +49,6 @@ export class PostVM
         this.readCount = post.readCount || 0;
         this.comments = post.comments || [];
         this.votes = post.votes || [];
-        this.mainImage = post.mainImage || '';
         this.imagePath = post.imagePath || '';
         this.publishDate = post.publishDate || '';
         this.isSliderPost = post.isSliderPost || false;

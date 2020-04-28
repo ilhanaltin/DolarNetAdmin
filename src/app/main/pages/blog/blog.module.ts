@@ -27,6 +27,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AuthGuard } from 'app/main/services/auth-guard.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const routes: Routes = [
     {
@@ -71,6 +72,7 @@ const routes: Routes = [
         MatDatepickerModule,
         MatCheckboxModule,
         MatMenuModule,
+        MatAutocompleteModule,
         
         CKEditorModule,
 

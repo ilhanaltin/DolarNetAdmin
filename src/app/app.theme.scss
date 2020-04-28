@@ -84,6 +84,7 @@ $typography: mat-typography-config(
 @import "src/app/main/pages/audit/audit.theme";
 @import "src/app/main/pages/users/users.theme";
 @import "src/app/main/pages/blog/posts/posts.theme";
+@import "src/app/main/pages/file-manager/file-manager.theme";
 
 // Define a mixin for easier access
 @mixin components-theme($theme) {
@@ -95,6 +96,7 @@ $typography: mat-typography-config(
     @include audit-theme($theme);
     @include users-theme($theme);
     @include blog-posts-theme($theme);
+    @include file-manager-theme($theme);
 }
 
 // -----------------------------------------------------------------------------------------------------

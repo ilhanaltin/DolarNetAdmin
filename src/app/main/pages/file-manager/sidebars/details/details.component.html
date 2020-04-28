@@ -1,0 +1,57 @@
+<!-- SIDEBAR HEADER -->
+<div class="header accent p-24" fxLayout="column" fxLayoutAlign="space-between">
+
+    <div class="toolbar" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-icon-button matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-icon-button class="" aria-label="Download" matTooltip="Download">
+            <mat-icon>cloud_download</mat-icon>
+        </button>
+       
+    </div>
+
+    <div>
+        <div class="title mb-8">{{selected.fileName}}</div>
+        <div class="subtitle secondary-text">
+            <span>Oluşturma Tarihi</span>
+            <span>: {{selected.date | date:'dd-MM-yyyy'}}</span>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR HEADER -->
+
+<!-- SIDEBAR CONTENT -->
+<div class="content p-24" fusePerfectScrollbar>
+
+    <div class="file-details" [@animate]="{value:'*',params:{delay:'200ms'}}">
+
+        <div class="preview file-icon" fxLayout="row" fxLayoutAlign="center center">
+            <img [src]="selected.filePath" />
+        </div>
+
+        <div class="title">Info</div>
+
+        <table>
+            <tr class="type">
+                <th>Tipi</th>
+                <td>{{selected.fileTypeName}}</td>
+            </tr>
+
+            <tr class="size">
+                <th>Boyut</th>
+                <td>{{selected.size}}</td>
+            </tr>
+
+            <tr class="modified">
+                <th>Oluşturma Tarihi</th>
+                <td>{{selected.date | date:'dd-MM-yyyy'}}</td>
+            </tr>
+           
+        </table>
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

@@ -55,130 +55,173 @@
             <div class="content">
 
                 <mat-tab-group>
-                        <mat-tab label="Yazı Detayı">
-                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" fxFlex="100">
-                                <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
-                                    fxFlex="1 0 auto" name="postForm" [formGroup]="postForm">
+                    <mat-tab label="Yazı Detayı">
+                        <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" fxFlex="100">
+                            <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
+                                fxFlex="1 0 auto" name="postForm" [formGroup]="postForm">
 
-                                    <input type="hidden" name="id" formControlName="id">
+                                <input type="hidden" name="id" formControlName="id">
 
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
-                                                <mat-label>Yazı Başlığı</mat-label>
-                                                <input matInput placeholder="Yazı Başlığı"
-                                                        name="title"
-                                                        formControlName="title"
-                                                        required>
-                                            </mat-form-field>
-                        
-                                    </div>
-
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-
-                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
-                                                <mat-label>Uzun Başlık</mat-label>
-                                                <input matInput placeholder="Yazı Başlığı"
-                                                        name="title"
-                                                        formControlName="longTitle"
-                                                        required>
-                                            </mat-form-field>
-                        
-                                    </div>
-                    
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                    
-                                        <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
-                                            <mat-label>Kategori</mat-label>
-                                            <mat-select formControlName="categoryIds" multiple required>
-                                                <mat-option *ngFor="let category of categoryList; let j = index" [value]="categoryList[j].id">
-                                                    {{category.adi}}
-                                                </mat-option>
-                                            </mat-select>
-                                            <mat-error *ngIf="postForm.get('categoryIds').hasError('required')">
-                                                Lütfen kategori seçiniz
-                                            </mat-error>
-                                        </mat-form-field>                
-
-                                        <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
-                                            <mat-label>Durum</mat-label>
-                                            <mat-select formControlName="statusTypeId" required>
-                                                <mat-option *ngFor="let status of statusList; let j = index" [value]="statusList[j].id">
-                                                    {{status.adi}}
-                                                </mat-option>
-                                            </mat-select>
-                                            <mat-error *ngIf="postForm.get('statusTypeId').hasError('required')">
-                                                Lütfen durum seçiniz
-                                            </mat-error>
-                                        </mat-form-field>  
-                    
-                                    </div>
-
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                        <mat-form-field appearance="outline" fxFlex="50">
-                                            <mat-label>Yayın Tarihi</mat-label>
-                                            <input matInput [matDatepicker]="birthdayDatePicker" 
-                                                name="publishDate" 
-                                                formControlName="publishDate"
-                                                required>
-                                            <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
-                                            <mat-datepicker #birthdayDatePicker></mat-datepicker>
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
+                                            <mat-label>Yazı Başlığı</mat-label>
+                                            <input matInput placeholder="Yazı Başlığı"
+                                                    name="title"
+                                                    formControlName="title"
+                                                    required>
                                         </mat-form-field>
+                    
+                                </div>
 
-                                        <mat-checkbox class="mat-check" aria-label="Sliderda Görünsün mü?" formControlName="isSliderPost">
-                                            Sliderda Görünsün mü
-                                        </mat-checkbox>
-                                    </div>
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-
-                                            <mat-label>Etiketler</mat-label>
-        
-                                            <mat-chip-list #tagList name="tags" formControlName="tags">
-        
-                                                <mat-chip *ngFor="let tag of post.tags"
-                                                          [removable]="true" (removed)="post.removeTag(tag); postForm.get('tags').markAsDirty();">
-                                                    {{tag}}
-                                                    <mat-icon matChipRemove>cancel</mat-icon>
-                                                </mat-chip>
-        
-                                                <input [matChipInputFor]="tagList"
-                                                       [matChipInputAddOnBlur]="true"
-                                                       (matChipInputTokenEnd)="post.addTag($event); postForm.get('tags').markAsDirty();"/>
-        
-                                            </mat-chip-list>
-        
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="100">
+                                            <mat-label>Uzun Başlık</mat-label>
+                                            <input matInput placeholder="Yazı Başlığı"
+                                                    name="title"
+                                                    formControlName="longTitle"
+                                                    required>
                                         </mat-form-field>
+                    
+                                </div>
+                
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                
+                                    <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
+                                        <mat-label>Kategori</mat-label>
+                                        <mat-select formControlName="categoryIds" multiple required>
+                                            <mat-option *ngFor="let category of categoryList; let j = index" [value]="categoryList[j].id">
+                                                {{category.adi}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="postForm.get('categoryIds').hasError('required')">
+                                            Lütfen kategori seçiniz
+                                        </mat-error>
+                                    </mat-form-field>                
+
+                                    <mat-form-field fxFlex="50" class="pr-4" appearance="outline">
+                                        <mat-label>Durum</mat-label>
+                                        <mat-select formControlName="statusTypeId" required>
+                                            <mat-option *ngFor="let status of statusList; let j = index" [value]="statusList[j].id">
+                                                {{status.adi}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="postForm.get('statusTypeId').hasError('required')">
+                                            Lütfen durum seçiniz
+                                        </mat-error>
+                                    </mat-form-field>  
+                
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <mat-form-field appearance="outline" fxFlex="50">
+                                        <mat-label>Yayın Tarihi</mat-label>
+                                        <input matInput [matDatepicker]="birthdayDatePicker" 
+                                            name="publishDate" 
+                                            formControlName="publishDate"
+                                            required>
+                                        <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #birthdayDatePicker></mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-checkbox class="mat-check" aria-label="Sliderda Görünsün mü?" formControlName="isSliderPost">
+                                        Sliderda Görünsün mü
+                                    </mat-checkbox>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+                                        <mat-label>Etiketler</mat-label>
     
-                                    </div>
+                                        <mat-chip-list #tagList name="tags" formControlName="tags">
+    
+                                            <mat-chip *ngFor="let tag of post.tags"
+                                                        [removable]="true" (removed)="post.removeTag(tag); postForm.get('tags').markAsDirty();">
+                                                {{tag}}
+                                                <mat-icon matChipRemove>cancel</mat-icon>
+                                            </mat-chip>
+    
+                                            <input [matChipInputFor]="tagList"
+                                                    [matChipInputAddOnBlur]="true"
+                                                    (matChipInputTokenEnd)="post.addTag($event); postForm.get('tags').markAsDirty();"/>
+    
+                                        </mat-chip-list>
+    
+                                    </mat-form-field>
 
-                                    
-                                    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                        <ckeditor [editor]="Editor" formControlName="content" fxFlex="100"></ckeditor>                    
-                                    </div>
-                                </form>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <mat-form-field fxFlex="25" class="example-full-width">
+                                        <input matInput
+                                            placeholder="Resim Seç"
+                                            aria-label="Resim Seç"
+                                            [matAutocomplete]="auto"
+                                            [(ngModel)]="selectedMediaValue"
+                                            [formControl]="stateCtrl">
+                                        <button mat-button *ngIf="selectedMediaValue" matSuffix mat-icon-button aria-label="Clear" (click)="selectedMediaValue=''; selectedMedia=undefined;">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let media of filteredMedias | async; let i = index" [value]="media.fileName" (click)="setSelectedMedia(media,i)">
+                                                <img class="example-option-img" aria-hidden [src]="media.filePath" height="75" width="75">
+                                                <span>{{media.fileName}}</span> |
+                                                <small>Size: {{media.size}}</small>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button
+                                            [disabled]="selectedMediaValue === undefined || selectedMediaValue === ''"
+                                            class="save-post-button ml-20"                                                
+                                            (click)="addImageToPost();">
+                                        <span>EKLE</span>
+                                    </button>
+
+                                    <img *ngIf="selectedMedia" class="example-option-img ml-12" [src]="selectedMedia.filePath" height="75" width="100">
+
+                                </div>
+                                
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <ckeditor [editor]="Editor" 
+                                        formControlName="content" 
+                                        fxFlex="100" 
+                                        #contentEditor
+                                        (blur)="onBlur($event)">
+                                    </ckeditor>                    
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Ana Resim">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                <mat-form-field class="ml-24 mt-12">
+                                    <input matInput
+                                        placeholder="Ana Resim Seç"
+                                        aria-label="Ana Resim Seç"
+                                        [matAutocomplete]="autoMainImage"
+                                        [formControl]="stateCtrlMainImage">
+                                    <mat-autocomplete #autoMainImage="matAutocomplete" [panelWidth]="auto">
+                                        <mat-option *ngFor="let media of filteredMedias | async; let i = index" [value]="media.fileName" 
+                                            (click)="setSelectedMediaForSlider(media,i)">
+                                            <img class="example-option-img" aria-hidden [src]="media.filePath" height="75" width="75">
+                                            <span>{{media.fileName}}</span> |
+                                            <small>Size: {{media.size}}</small>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                                </div>                                  
                             </div>
-                        </mat-tab>
-                        <mat-tab label="Resim">
-                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">                                    
-                                <input
-                                    style="display: none"
-                                    type="file" (change)="onFileChanged($event)"
-                                    #fileInput>
-                                <button mat-mini-fab
-                                    color="warn"
-                                    (click)="fileInput.click()"
-                                    aria-label="Resim ekle">
-                                    <mat-icon>add</mat-icon>
-                                </button>
+                            <div class="col-sm ml-24">
+                                <img [src]="getImage()" />
                             </div>
-                            <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
-                                <img [src]="getImage()" /> 
-                            </div>
-                        </mat-tab>
+                            </div>                                                                                  
+                    </mat-tab>
                 </mat-tab-group>
-
             </div>
             <!-- / CONTENT -->
 

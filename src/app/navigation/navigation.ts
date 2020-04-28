@@ -24,8 +24,15 @@ export const navigationAdmin: FuseNavigation[] = [
                 id       : 'blog',
                 title    : 'Yazı Yönetim',
                 type     : 'item',
-                icon     : 'search',
+                icon     : 'insert_drive_file',
                 url      : '/posts',
+            },
+            {
+                id       : 'file-manager',
+                title    : 'Medya Yönetim',
+                type     : 'item',
+                icon     : 'image',
+                url      : '/file-manager'
             }
         ]
     }
@@ -43,6 +50,13 @@ export const navigationEditor: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'search',
                 url      : '/posts',
+            },
+            {
+                id       : 'file-manager',
+                title    : 'Medya Yönetim',
+                type     : 'item',
+                icon     : 'folder',
+                url      : '/file-manager'
             }
         ]
     }

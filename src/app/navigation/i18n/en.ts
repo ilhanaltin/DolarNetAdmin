@@ -14,6 +14,10 @@ export const locale = {
             'POSTS': {
                 'TITLE': 'Post Management',
                 'BADGE': '15'
+            },
+            'MEDIAS': {
+                'TITLE': 'Media Management',
+                'BADGE': '15'
             }
         }
     }

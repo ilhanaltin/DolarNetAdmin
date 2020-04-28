@@ -10,6 +10,10 @@ export const GlobalConstants = {
         Action: 2,
         DbOperation: 3
     },
+    FileType: {
+        Image: 1,
+        Video: 2
+    },
     PostCategories: ['Döviz','Altın','Kripto Paralar','Gündem','Borsa','Emtia','En Son','En Popüler',
     'Ekonomik İndikatörler', 'Ekonomi', 'Dünya', 'Türkiye', 'Blog'],
     PostStatus: ['Taslak', 'Yayınlandı']

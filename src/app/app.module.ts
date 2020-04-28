@@ -23,6 +23,7 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { LoginModule } from './main/pages/authentication/login/login.module';
 import { AuditModule } from './main/pages/audit/audit.module';
 import { BlogModule } from './main/pages/blog/blog.module';
+import { FileManagerModule } from './main/pages/file-manager/file-manager.module';
 
 const appRoutes: Routes = [
     {
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
         LoginModule,
         UsersModule,
         AuditModule,
-        BlogModule
+        BlogModule,
+        FileManagerModule
     ],
     bootstrap   : [
         AppComponent        
