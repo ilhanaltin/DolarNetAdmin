@@ -11,6 +11,10 @@ export const locale = {
                 'TITLE': 'Audit Follow',
                 'BADGE': '15'
             },
+            'CONTACT-FORM': {
+                'TITLE': 'Contact Message Follow',
+                'BADGE': '15'
+            },
             'POSTS': {
                 'TITLE': 'Post Management',
                 'BADGE': '15'

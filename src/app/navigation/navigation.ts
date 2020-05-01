@@ -21,6 +21,13 @@ export const navigationAdmin: FuseNavigation[] = [
                 url      : '/audit',
             },
             {
+                id       : 'contact-messages',
+                title    : 'İletişim Formu',
+                type     : 'item',
+                icon     : 'contact_support',
+                url      : '/contact-messages',
+            },
+            {
                 id       : 'blog',
                 title    : 'Yazı Yönetim',
                 type     : 'item',

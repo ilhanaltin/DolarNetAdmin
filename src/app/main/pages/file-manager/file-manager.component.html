@@ -30,9 +30,9 @@
             <!-- BREADCRUMB -->
             <div class="breadcrumb text-truncate h1 pl-72" fxLayout="row" fxLayoutAlign="start center"
                  [@animate]="{value:'*',params:{x:'50px'}}">
-                <div *ngFor="let path of pathArr; last  as isLast" fxLayout="row" fxLayoutAlign="start center">
-                    <span>{{path}}</span>
-                    <mat-icon *ngIf="!isLast" class="separator">chevron_right</mat-icon>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <span>Anasayfa/Media Dosyaları</span>
+                    <mat-icon class="separator">chevron_right</mat-icon>
                 </div>
             </div>
             <!-- / BREADCRUMB -->

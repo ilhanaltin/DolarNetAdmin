@@ -82,6 +82,7 @@ $typography: mat-typography-config(
 @import "src/app/main/pages/authentication/login/login.theme";
 @import "src/app/layout/components/toolbar/toolbar.theme";
 @import "src/app/main/pages/audit/audit.theme";
+@import "src/app/main/pages/forms/contact-message/contact-message.theme";
 @import "src/app/main/pages/users/users.theme";
 @import "src/app/main/pages/blog/posts/posts.theme";
 @import "src/app/main/pages/file-manager/file-manager.theme";
@@ -94,6 +95,7 @@ $typography: mat-typography-config(
     @include toolbar-theme($theme);
     @include login-theme($theme);
     @include audit-theme($theme);
+    @include contact-message-theme($theme);
     @include users-theme($theme);
     @include blog-posts-theme($theme);
     @include file-manager-theme($theme);

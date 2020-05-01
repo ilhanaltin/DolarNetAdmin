@@ -1,0 +1,53 @@
+<div class="divfullWidth">
+    <mat-table #table [dataSource]="dataSource"
+            [@animateStagger]="{value:'50'}">
+
+        <!-- Ad Soyad -->
+        <ng-container matColumnDef="nameSurname">
+            <mat-header-cell *matHeaderCellDef>Ad Soyad</mat-header-cell>
+            <mat-cell *matCellDef="let contactMessage">
+                <p class="text-truncate font-weight-600">{{contactMessage.nameSurname}}</p>
+            </mat-cell>
+        </ng-container>
+
+         <!-- E-Posta -->
+         <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef>E-Posta</mat-header-cell>
+            <mat-cell *matCellDef="let contactMessage">
+                <p class="text-truncate font-weight-600">{{contactMessage.email}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- GSM -->
+        <ng-container matColumnDef="gsm">
+            <mat-header-cell *matHeaderCellDef>GSM</mat-header-cell>
+            <mat-cell *matCellDef="let contactMessage">
+                <p class="text-truncate font-weight-600">{{contactMessage.gsm}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Mesaj -->
+        <ng-container matColumnDef="message">
+            <mat-header-cell *matHeaderCellDef>Mesaj</mat-header-cell>
+            <mat-cell *matCellDef="let contactMessage">
+                <p class="text-truncate font-weight-600">{{contactMessage.message}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  
+        <mat-row *matRowDef="let contactMessage; columns: displayedColumns;"
+                class="audit"
+                (click)="contactMessageDetail(contactMessage)"
+                [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>      
+    </mat-table>
+
+    <mat-paginator #paginator
+                    [length]="dataSource.filteredDataCount"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>
+
+

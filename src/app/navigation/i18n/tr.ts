@@ -11,6 +11,10 @@ export const locale = {
                 'TITLE': 'Log Takip',
                 'BADGE': '15'
             },
+            'CONTACT-FORM': {
+                'TITLE': 'İletişim Mesaj Takip',
+                'BADGE': '15'
+            },
             'POSTS': {
                 'TITLE': 'Yazı Yönetimi',
                 'BADGE': '15'

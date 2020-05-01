@@ -18,7 +18,9 @@ export const apiConfig = {
           CheckEmail: "User/CheckEmail",
           GetAllUser: "User",
           DeleteUser: "User/Delete",
-          GetById: "User/GetById"
+          GetById: "User/GetById",
+          Contact: "User/Contact",
+          ContactList: "User/ContactList"
         },
         Blog:
         {

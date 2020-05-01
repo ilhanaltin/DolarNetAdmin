@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+<mat-dialog-content class="mat-typography">
+    <p>
+        <b>Ad Soyad:</b> {{contactData.nameSurname}}
+    </p>
+    <p>
+        <b>E-Posta:</b> {{contactData.email}}
+    </p>
+    <p>
+        <b>GSM:</b> {{contactData.gsm}}
+    </p>
+    <p>
+        <b>Mesaj:</b>
+    </p>
+    <p>
+        {{contactData.message}}
+    </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
