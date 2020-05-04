@@ -7,10 +7,6 @@ export const locale = {
                 'TITLE': 'Kullanıcı Yönetimi',
                 'BADGE': '15'
             },
-            'AUDIT': {
-                'TITLE': 'Log Takip',
-                'BADGE': '15'
-            },
             'CONTACT-FORM': {
                 'TITLE': 'İletişim Mesaj Takip',
                 'BADGE': '15'
@@ -19,8 +15,20 @@ export const locale = {
                 'TITLE': 'Yazı Yönetimi',
                 'BADGE': '15'
             },
+            'POSTS-COMMENTS': {
+                'TITLE': 'Yazı Yorumları',
+                'BADGE': '15'
+            },
+            'UNITS-COMMENTS': {
+                'TITLE': 'Birim Yorumları',
+                'BADGE': '15'
+            },
             'MEDIAS': {
                 'TITLE': 'Medya Yönetimi',
+                'BADGE': '15'
+            },
+            'AUDIT': {
+                'TITLE': 'Log Takip',
                 'BADGE': '15'
             }
         }

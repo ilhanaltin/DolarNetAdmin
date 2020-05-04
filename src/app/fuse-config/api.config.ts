@@ -27,12 +27,22 @@ export const apiConfig = {
           GetAll: "Blog/GetForAdmin",
           GetById: "Blog/GetById",
           Post: "Blog",
-          Delete: "Blog/Delete"
+          Delete: "Blog/Delete",
+          GetComments: "Blog/GetComments",
+          CommentStatusUpdate: "Blog/CommentStatusUpdate",
+          DeleteComment: "Blog/DeleteComment"
         },
         Media:
         {
           GetAll: "Media",
-          Post: "Media"
+          Post: "Media",
+          DeleteMedia: "Media/DeleteMedia"
+        },
+        Currency:
+        {
+          GetComments: "Currency/GetComments",
+          CommentStatusUpdate: "Currency/CommentStatusUpdate",
+          DeleteComment: "Currency/DeleteComment"          
         },
         Audit:
         {

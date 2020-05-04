@@ -12,13 +12,20 @@ export const navigationAdmin: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'person',
                 url      : '/users'
-            },
+            },            
             {
-                id       : 'audit',
-                title    : 'Log Yönetim',
+                id       : 'post-comment',
+                title    : 'Yazı Yorumları',
                 type     : 'item',
                 icon     : 'search',
-                url      : '/audit',
+                url      : '/post-comment',
+            },
+            {
+                id       : 'unit-comment',
+                title    : 'Birim Yorumları',
+                type     : 'item',
+                icon     : 'search',
+                url      : '/unit-comment',
             },
             {
                 id       : 'contact-messages',
@@ -40,7 +47,14 @@ export const navigationAdmin: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'image',
                 url      : '/file-manager'
-            }
+            },
+            {
+                id       : 'audit',
+                title    : 'Log Yönetim',
+                type     : 'item',
+                icon     : 'search',
+                url      : '/audit',
+            },
         ]
     }
 ];

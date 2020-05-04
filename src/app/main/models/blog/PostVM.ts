@@ -1,4 +1,4 @@
-import { PostCommentsVM } from './PostCommentsVM';
+import { PostCommentVM } from './PostCommentVM';
 import { PostVotesVM } from './PostVotesVM';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -21,7 +21,7 @@ export class PostVM
     likeCount: number;
     commentCount: number;
     readCount: number;
-    comments: PostCommentsVM;
+    comments: PostCommentVM;
     votes: PostVotesVM;
     imagePath: string;
 

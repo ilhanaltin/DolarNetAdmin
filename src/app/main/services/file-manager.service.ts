@@ -7,6 +7,7 @@ import { BaseService } from './base.service';
 import { apiConfig } from 'app/fuse-config/api.config';
 import { MediaListResponseDetailsVM } from '../models/media/MediaListResponseDetailsVM';
 import { ServiceResult } from '../models/ServiceResult';
+import { StandartResponseDetailsVM } from '../models/StandartResponseDetailsVM';
 
 @Injectable()
 export class FileManagerService implements Resolve<any>
@@ -93,8 +94,8 @@ export class FileManagerService implements Resolve<any>
                     resolve(response);
                 }, reject);
         });
-    }
-   
+    }    
+
     getFilesForListControl(): Observable<ServiceResult<MediaListResponseDetailsVM>>
     {
         let myParams = new HttpParams()
@@ -102,5 +103,10 @@ export class FileManagerService implements Resolve<any>
                 .append('PageId', "0");
                     
         return this._baseService.get<MediaListResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.Media.GetAll, myParams);                
+    }
+
+    deleteStatus(mediaId): Observable<ServiceResult<StandartResponseDetailsVM>>
+    {
+        return this._baseService.post<StandartResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.Media.DeleteMedia, {id: mediaId});                
     }
 }

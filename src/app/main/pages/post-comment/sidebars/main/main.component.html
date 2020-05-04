@@ -1,0 +1,52 @@
+<div class="sidebar-content">
+
+    <div class="card">
+
+        <!-- SIDEBAR HEADER -->
+        <div class="header p-24" fxLayout="row" fxLayoutAlign="start center">
+
+            <!-- USER -->
+           <!--  <img [src]="_authenticationService.currentUser.avatar" class="avatar mr-16" [alt]="_authenticationService.currentUser.name"/>
+            <span class="h5">{{user.name}}</span> -->
+            <!--/ USER -->
+
+        </div>
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav material2">
+
+                <div class="nav-item" aria-label="inbox">
+                    <a class="nav-link" matRipple (click)="changeFilter('all')"
+                       [ngClass]="{'active accent':filterBy ==='all'}">
+                        <span class="title">Tümü</span>
+                    </a>
+                </div>  
+                
+                <div class="nav-item" aria-label="waiting comments" (click)="changeFilter('waiting')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='waiting'}">
+                        <div class="title">Onay Bekliyor</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="approved comments" (click)="changeFilter('approved')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='approved'}">
+                        <div class="title">Onaylanmış</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" aria-label="trashed comments" (click)="changeFilter('trash')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='trash'}">
+                        <div class="title">Çöp</div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

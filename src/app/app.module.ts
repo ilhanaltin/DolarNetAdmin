@@ -1,3 +1,4 @@
+import { PostCommentModule } from './main/pages/post-comment/post-comment.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +26,7 @@ import { AuditModule } from './main/pages/audit/audit.module';
 import { BlogModule } from './main/pages/blog/blog.module';
 import { FileManagerModule } from './main/pages/file-manager/file-manager.module';
 import { ContactMessageModule } from './main/pages/forms/contact-message/contact-message.module';
+import { UnitCommentModule } from './main/pages/unit-comment/unit-comment.module';
 
 const appRoutes: Routes = [
     {
@@ -70,7 +72,9 @@ const appRoutes: Routes = [
         AuditModule,
         ContactMessageModule,
         BlogModule,
-        FileManagerModule
+        FileManagerModule,
+        PostCommentModule,
+        UnitCommentModule
     ],
     bootstrap   : [
         AppComponent        

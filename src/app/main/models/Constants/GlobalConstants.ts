@@ -10,6 +10,11 @@ export const GlobalConstants = {
         Action: 2,
         DbOperation: 3
     },
+    CommentStausType: {
+        Waiting: 1,
+        Approved: 2,
+        Trash: 3
+    },
     FileType: {
         Image: 1,
         Video: 2

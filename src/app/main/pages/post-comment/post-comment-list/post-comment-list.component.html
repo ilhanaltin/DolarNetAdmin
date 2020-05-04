@@ -1,0 +1,99 @@
+<div class="divfullWidth">
+    <mat-table #table [dataSource]="dataSource"
+            [@animateStagger]="{value:'50'}">
+
+        <!-- Durum -->
+        <ng-container matColumnDef="statusTypeName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs [ngClass]="'customWidthClass'">Durumu</mat-header-cell>
+            <mat-cell *matCellDef="let postComment" fxHide fxShow.gt-xs [ngClass]="'customWidthClass'">
+                <mat-icon *ngIf="postComment.statusTypeId == _globalConstants.CommentStausType.Approved" 
+                    class="active-icon green-600 s-16" matTooltip="Onaylandı">check</mat-icon>
+                <mat-icon *ngIf="postComment.statusTypeId == _globalConstants.CommentStausType.Trash" 
+                class="active-icon red-600 s-16" matTooltip="Çöp Kutusu">close</mat-icon>
+                <mat-icon *ngIf="postComment.statusTypeId == _globalConstants.CommentStausType.Waiting" 
+                class="active-icon red-600 s-16" matTooltip="Bekliyor">priority_high</mat-icon>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Adı Soyadı -->
+        <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef>Kullanıcı Adı</mat-header-cell>
+            <mat-cell *matCellDef="let postComment">
+                <p class="text-truncate font-weight-600">{{postComment.userName}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Rumuz -->
+        <ng-container matColumnDef="userNickName">
+            <mat-header-cell *matHeaderCellDef>Rumuz</mat-header-cell>
+            <mat-cell *matCellDef="let postComment">
+                <p class="text-truncate font-weight-600">{{postComment.userNickName}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- E-Posta -->
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef>E-Posta</mat-header-cell>
+            <mat-cell *matCellDef="let postComment">
+                <p class="text-truncate font-weight-600">{{postComment.email}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Yazı -->
+        <ng-container matColumnDef="postTitle">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Yazı Adı</mat-header-cell>
+            <mat-cell *matCellDef="let postComment" fxHide fxShow.gt-sm>
+                <p class="text-truncate">
+                    {{postComment.postTitle}}
+                </p>
+            </mat-cell>
+        </ng-container>                
+
+        <!-- Yorum -->
+        <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Yorum</mat-header-cell>
+            <mat-cell *matCellDef="let postComment" fxHide fxShow.gt-sm>
+                <p class="text-truncate">
+                    {{postComment.comment}}
+                </p>
+            </mat-cell>
+        </ng-container>        
+
+        <!-- Buttons Column -->
+        <ng-container matColumnDef="buttons">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let comment">
+                <div fxFlex="row" fxLayoutAlign="end center">
+                    <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                            (click)="$event.stopPropagation();">
+                        <mat-icon class="secondary-text">more_vert</mat-icon>
+                    </button>
+
+                    <mat-menu #moreMenu="matMenu">
+                        <button mat-menu-item aria-label="remove" (click)="deleteComment(comment)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Sil</span>
+                        </button>
+                    </mat-menu>
+                </div>
+
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  
+        <mat-row *matRowDef="let postComment; columns: displayedColumns;"
+                class="audit"
+                (click)="postCommentDetail(postComment)"
+                [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>      
+    </mat-table>
+
+    <mat-paginator #paginator
+                    [length]="dataSource.filteredDataCount"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>
+
+

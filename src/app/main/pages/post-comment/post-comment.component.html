@@ -1,4 +1,4 @@
-<div id="audits" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+<div id="post-comments" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
 
     <!-- HEADER -->
     <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
@@ -7,7 +7,8 @@
         <!-- APP TITLE -->
         <div fxLayout="row" fxLayoutAlign="start center">
 
-            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm>
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('post-comments-main-sidebar')">
                 <mat-icon>menu</mat-icon>
             </button>
 
@@ -16,7 +17,7 @@
                           [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">search
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    İletişim Mesajları
+                    Yorumlar
                 </span>
             </div>
 
@@ -30,7 +31,7 @@
 
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input [formControl]="searchInput" placeholder="Mesaj ara">
+                    <input [formControl]="searchInput" placeholder="Yorum ara">
                 </div>
 
             </div>
@@ -43,12 +44,25 @@
 
     <!-- CONTENT -->
     <div class="content">
+
+        <!-- SIDEBAR -->
+        <fuse-sidebar class="sidebar" name="post-comments-main-sidebar" position="left" lockedOpen="gt-sm">
+
+            <!-- SIDEBAR CONTENT -->
+            <div class="content" fusePerfectScrollbar>
+                <post-comments-main-sidebar [@animate]="{value:'*'}"></post-comments-main-sidebar>
+            </div>
+            <!-- / SIDEBAR CONTENT -->
+
+        </fuse-sidebar>
+        <!-- / SIDEBAR -->
+
         <!-- CENTER -->
         <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
 
             <!-- CONTENT -->
             <div class="content">
-                <contact-message-list></contact-message-list>
+                <post-comment-list></post-comment-list>
             </div>
             <!-- / CONTENT -->
 
