@@ -6,13 +6,13 @@ export const locale = {
             'USERS': {
                 'TITLE': 'Users',
                 'BADGE': '25'
-            },            
-            'CONTACT-FORM': {
-                'TITLE': 'Contact Message Follow',
-                'BADGE': '15'
-            },            
-            'POSTS': {
+            },                                    
+            'BLOG': {
                 'TITLE': 'Post Management',
+                'BADGE': '15'
+            },
+            'FILE-MANAGER': {
+                'TITLE': 'Media Management',
                 'BADGE': '15'
             },
             'POST-COMMENT': {
@@ -23,8 +23,8 @@ export const locale = {
                 'TITLE': 'Birim Comments Follow',
                 'BADGE': '15'
             },
-            'MEDIAS': {
-                'TITLE': 'Media Management',
+            'CONTACT-MESSAGES': {
+                'TITLE': 'Contact Message Follow',
                 'BADGE': '15'
             },
             'AUDIT': {

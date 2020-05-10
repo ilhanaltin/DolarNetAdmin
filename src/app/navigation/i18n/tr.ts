@@ -6,25 +6,25 @@ export const locale = {
             'USERS': {
                 'TITLE': 'Kullanıcı Yönetimi',
                 'BADGE': '15'
-            },
-            'CONTACT-FORM': {
-                'TITLE': 'İletişim Mesaj Takip',
-                'BADGE': '15'
-            },
-            'POSTS': {
+            },            
+            'BLOG': {
                 'TITLE': 'Yazı Yönetimi',
                 'BADGE': '15'
             },
-            'POSTS-COMMENTS': {
+            'FILE-MANAGER': {
+                'TITLE': 'Medya Yönetimi',
+                'BADGE': '15'
+            },
+            'POST-COMMENT': {
                 'TITLE': 'Yazı Yorumları',
                 'BADGE': '15'
             },
-            'UNITS-COMMENTS': {
+            'UNIT-COMMENT': {
                 'TITLE': 'Birim Yorumları',
                 'BADGE': '15'
             },
-            'MEDIAS': {
-                'TITLE': 'Medya Yönetimi',
+            'CONTACT-MESSAGES': {
+                'TITLE': 'İletişim Mesaj Takip',
                 'BADGE': '15'
             },
             'AUDIT': {

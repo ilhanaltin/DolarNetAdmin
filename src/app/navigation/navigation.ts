@@ -12,7 +12,21 @@ export const navigationAdmin: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'person',
                 url      : '/users'
-            },            
+            },                        
+            {
+                id       : 'blog',
+                title    : 'Yazı Yönetim',
+                type     : 'item',
+                icon     : 'insert_drive_file',
+                url      : '/posts',
+            },
+            {
+                id       : 'file-manager',
+                title    : 'Medya Yönetim',
+                type     : 'item',
+                icon     : 'image',
+                url      : '/file-manager'
+            },
             {
                 id       : 'post-comment',
                 title    : 'Yazı Yorumları',
@@ -35,26 +49,12 @@ export const navigationAdmin: FuseNavigation[] = [
                 url      : '/contact-messages',
             },
             {
-                id       : 'blog',
-                title    : 'Yazı Yönetim',
-                type     : 'item',
-                icon     : 'insert_drive_file',
-                url      : '/posts',
-            },
-            {
-                id       : 'file-manager',
-                title    : 'Medya Yönetim',
-                type     : 'item',
-                icon     : 'image',
-                url      : '/file-manager'
-            },
-            {
                 id       : 'audit',
                 title    : 'Log Yönetim',
                 type     : 'item',
                 icon     : 'search',
                 url      : '/audit',
-            },
+            }
         ]
     }
 ];
