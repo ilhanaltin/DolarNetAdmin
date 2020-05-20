@@ -1,6 +1,6 @@
 import { ContactMessageService } from './../../../../services/contact-message.service';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { fuseAnimations } from '@fuse/animations';
 import {MatPaginator} from '@angular/material/paginator';
 import { ContactMessageDetailsFormDialogComponent } from '../contact-message-details-form/contact-message-details-form.component';
 import { ContactVM } from 'app/main/models/authentication/ContactVM';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector     : 'contact-message-list',
@@ -29,8 +30,9 @@ export class ContactMessageListComponent implements OnInit, OnDestroy
 
     contactMessages: ContactVM[];
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nameSurname','email','gsm', 'message'];
+    displayedColumns = ['nameSurname','email','gsm', 'message', 'buttons'];
     dialogRef: any;
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -85,6 +87,27 @@ export class ContactMessageListComponent implements OnInit, OnDestroy
                     this._contactMessageService.onPagingChanged.next(this.paginator)
                 })
             ).subscribe();
+    }
+
+    /**
+     * Delete Message
+     */
+    deleteMessage(message): void
+    {
+        this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
+        });
+
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Silmek istediğinize emin misiniz?';
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if ( result )
+            {
+                this._contactMessageService.deleteMessage(message);
+            }
+            this.confirmDialogRef = null;
+        });
+
     }
 
     /**

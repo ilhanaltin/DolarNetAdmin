@@ -102,6 +102,8 @@ export class PostsService implements Resolve<any>
             const postIndex = this.posts.indexOf(post);
             this.posts.splice(postIndex, 1);
             this.onPostsChanged.next(this.posts);
+
+            this.getPosts();
          });
     }
 }

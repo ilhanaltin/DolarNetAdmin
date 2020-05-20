@@ -109,5 +109,22 @@ export class ContactMessageService implements Resolve<any>
                     }, reject);
             }
         );
-    }        
+    }    
+    
+    /**
+     * Delete message
+     *
+     * @param message
+     */
+    deleteMessage(message): void
+    {
+        this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteContactMessage, {id: message.id})
+        .subscribe(result=>{
+            const messageIndex = this.contactMessages.indexOf(message);
+            this.contactMessages.splice(messageIndex, 1);
+            this.onContactMessagesChanged.next(this.contactMessages);
+
+            this.getContactMessages();
+         });
+    }
 }

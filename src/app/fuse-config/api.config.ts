@@ -18,9 +18,11 @@ export const apiConfig = {
           CheckEmail: "User/CheckEmail",
           GetAllUser: "User",
           DeleteUser: "User/Delete",
+          DeleteSelected: "User/DeleteSelected",
           GetById: "User/GetById",
           Contact: "User/Contact",
-          ContactList: "User/ContactList"
+          ContactList: "User/ContactList",
+          DeleteContactMessage: "User/DeleteContactMessage"
         },
         Blog:
         {

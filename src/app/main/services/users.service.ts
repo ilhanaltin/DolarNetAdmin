@@ -253,6 +253,8 @@ export class UsersService implements Resolve<any>
             const userIndex = this.users.indexOf(user);
             this.users.splice(userIndex, 1);
             this.onUsersChanged.next(this.users);
+            
+            this.getUsers();
          });
     }
 
@@ -268,8 +270,14 @@ export class UsersService implements Resolve<any>
             });
             const userIndex = this.users.indexOf(user);
             this.users.splice(userIndex, 1);
-        }
+        } 
         this.onUsersChanged.next(this.users);
+
+        this._baseService.post(apiConfig.Api.Main.Url + apiConfig.Services.User.DeleteSelected, {ids: this.selectedUsers})
+        .subscribe(result=>{
+            this.getUsers();
+         });
+
         this.deselectUsers();
     }
 }
