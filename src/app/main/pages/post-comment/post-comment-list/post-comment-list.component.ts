@@ -163,6 +163,8 @@ export class PostCommentListComponent implements OnInit, OnDestroy
                         verticalPosition: 'top',
                         duration        : 2000
                     });
+
+                    this._postCommentService.getPostComments();
                 }
             });
     }

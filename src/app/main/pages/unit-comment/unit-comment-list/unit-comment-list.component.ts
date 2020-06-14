@@ -153,8 +153,6 @@ export class UnitCommentListComponent implements OnInit, OnDestroy
      */
     deleteComment(unitComment): void
     {
-        console.log(unitComment);
-
         this._unitCommentService.deleteStatus(unitComment.id)
             .subscribe(result=>{
                 if(result.status == 200)
@@ -163,6 +161,8 @@ export class UnitCommentListComponent implements OnInit, OnDestroy
                         verticalPosition: 'top',
                         duration        : 2000
                     });
+
+                    this._unitCommentService.getUnitComments();
                 }
             });
     }
