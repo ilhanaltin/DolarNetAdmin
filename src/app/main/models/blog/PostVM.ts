@@ -7,6 +7,7 @@ export class PostVM
     id: number;
     title: string;
     longTitle: string;
+    pageDescription: string;
     tags: string[];
     authorId: number;
     authorName: string;
@@ -35,6 +36,7 @@ export class PostVM
         this.id = post.id || 0;
         this.title = post.title || '';
         this.longTitle = post.longTitle || '';
+        this.pageDescription = post.pageDescription || '';
         this.tags = post.tags || [];
         this.authorId = post.authorId || 0;
         this.authorName = post.authorName || '';
