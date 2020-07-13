@@ -166,7 +166,19 @@
                                 </div>
 
                                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                    <mat-form-field fxFlex="25" class="example-full-width">
+                                    
+                                    <mat-form-field fxFlex="10" class="example-full-width">
+                                        <input matInput [matDatepicker]="dp" placeholder="Ay ve Yıl" [formControl]="date">
+                                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                        <mat-datepicker #dp
+                                                        startView="multi-year"
+                                                        (yearSelected)="chosenYearHandler($event)"
+                                                        (monthSelected)="chosenMonthHandler($event, dp)"
+                                                        panelClass="example-month-picker">
+                                        </mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-form-field fxFlex="25" class="example-full-width ml-12">
                                         <input matInput
                                             placeholder="Resim Seç"
                                             aria-label="Resim Seç"

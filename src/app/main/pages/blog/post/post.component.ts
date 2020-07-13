@@ -18,6 +18,36 @@ import { GlobalConstants } from 'app/main/models/Constants/GlobalConstants';
 import { ChangeEvent, BlurEvent } from '@ckeditor/ckeditor5-angular';
 import { FileManagerService } from 'app/main/services/file-manager.service';
 
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDatepicker} from '@angular/material/datepicker';
+
+// Depending on whether rollup is used, moment needs to be imported differently.
+// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
+// syntax. However, rollup creates a synthetic default module and we thus need to import it using
+// the `default as` syntax.
+import * as _moment from 'moment';
+import { Moment } from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+// import {default as _rollupMoment, Moment} from 'moment';
+
+// const moment = _rollupMoment || _moment;
+const moment = _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 export interface State {
   flag: string;
   name: string;
@@ -29,7 +59,15 @@ export interface State {
     templateUrl  : './post.component.html',
     styleUrls    : ['./post.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations   : fuseAnimations,
+    providers: [
+        // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+        // application's root module. We provide it at the component level here, due to limitations of
+        // our example generation script.
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+      ],
 })
 export class PostComponent implements OnInit, OnDestroy
 {
@@ -52,7 +90,12 @@ export class PostComponent implements OnInit, OnDestroy
     mediaList: MediaVM[];
     selectedMedia:MediaVM;
     selectedMediaValue:string;
-    selectedMediaForSlider:MediaVM;
+    selectedMediaForSlider:MediaVM;    
+
+    date = new FormControl(moment());
+
+    imageFilterMonth: number;
+    imageFilterYear: number;
 
     readonly _globalConstants = GlobalConstants;
 
@@ -83,7 +126,10 @@ export class PostComponent implements OnInit, OnDestroy
         this._unsubscribeAll = new Subject();
 
         this.categoryList = this.getCategoryList();
-        this.statusList = this.getStatusList();        
+        this.statusList = this.getStatusList();     
+        
+        this.imageFilterYear = (new Date()).getFullYear();
+        this.imageFilterMonth = (new Date()).getMonth();
     }            
     
     // -----------------------------------------------------------------------------------------------------
@@ -112,9 +158,16 @@ export class PostComponent implements OnInit, OnDestroy
             }
 
             this.postForm = this.createPostForm();
-        }); 
-            
-        this._fileManagerService.getFilesForListControl()
+
+            this.getImages();
+        });                     
+    }
+
+    getImages()
+    {
+        console.log("call getFilesForListControl");
+
+        this._fileManagerService.getFilesForListControl(this.imageFilterMonth + 1, this.imageFilterYear)
         .subscribe(result => {
             this.mediaList = result.result.mediaList;
 
@@ -125,6 +178,26 @@ export class PostComponent implements OnInit, OnDestroy
             );
         });
     }
+
+    chosenYearHandler(normalizedYear: Moment) {
+        const ctrlValue = this.date.value;
+        ctrlValue.year(normalizedYear.year());
+        this.date.setValue(ctrlValue);
+
+        this.imageFilterYear = normalizedYear.year();
+      }
+    
+      chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+        const ctrlValue = this.date.value;
+        ctrlValue.month(normalizedMonth.month());
+        this.date.setValue(ctrlValue);
+        datepicker.close();
+
+        this.imageFilterMonth = normalizedMonth.month();
+        console.log("call images");
+
+        this.getImages();
+      }
 
     private _filterStates(value: string): MediaVM[] {
         const filterValue = value.toLowerCase();
@@ -193,7 +266,8 @@ export class PostComponent implements OnInit, OnDestroy
             isSliderPost    : [this.post.isSliderPost],
             categoryIds     : [this.post.categoryIds, Validators.required],
             statusTypeId    : [this.post.statusTypeId, Validators.required],
-            imagePath       : [this.post.imagePath]
+            imagePath       : [this.post.imagePath],
+            dateFilterImg   : [new FormControl(moment())]
         });
     }
 

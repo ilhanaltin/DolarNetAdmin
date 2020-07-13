@@ -96,11 +96,13 @@ export class FileManagerService implements Resolve<any>
         });
     }    
 
-    getFilesForListControl(): Observable<ServiceResult<MediaListResponseDetailsVM>>
+    getFilesForListControl(month: number, year: number): Observable<ServiceResult<MediaListResponseDetailsVM>>
     {
         let myParams = new HttpParams()
-                .append('ItemCount', "50")
-                .append('PageId', "0");
+                .append('ItemCount', "200")
+                .append('PageId', "0")
+                .append('Month', month.toString())
+                .append('Year', year.toString());
                     
         return this._baseService.get<MediaListResponseDetailsVM>(apiConfig.Api.Main.Url + apiConfig.Services.Media.GetAll, myParams);                
     }
