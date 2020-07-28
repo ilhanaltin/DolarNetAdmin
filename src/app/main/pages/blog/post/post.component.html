@@ -116,14 +116,18 @@
 
                                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                                     <mat-form-field appearance="outline" fxFlex="50">
+                                        <!-- <mat-label>Yayın Tarihi</mat-label>
+                                        <input matInput [matDatepicker]="publishDateDatePicker" name="publishDate" formControlName="publishDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="publishDateDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #publishDateDatePicker></mat-datepicker> -->
+
                                         <mat-label>Yayın Tarihi</mat-label>
-                                        <input matInput [matDatepicker]="birthdayDatePicker" 
-                                            name="publishDate" 
-                                            formControlName="publishDate"
-                                            required>
-                                        <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
-                                        <mat-datepicker #birthdayDatePicker></mat-datepicker>
-                                    </mat-form-field>
+                                        <input matInput [matDatepicker]="publishDateDatePicker" formControlName="publishDate" hidden=true [readonly]="true" required>
+                                        <input matInput [value]="postForm.get('publishDate').value | date: 'dd/MM/yyyy'" (click)="publishDateDatePicker.open()" [readonly]="true">
+                                        <mat-datepicker-toggle matSuffix [for]="publishDateDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #publishDateDatePicker name="publishDate" ngDefaultControl></mat-datepicker>
+                                        
+                                    </mat-form-field>                                                                       
 
                                     <mat-checkbox class="mat-check" aria-label="Sliderda Görünsün mü?" formControlName="isSliderPost">
                                         Sliderda Görünsün mü
@@ -184,7 +188,7 @@
                                             aria-label="Resim Seç"
                                             [matAutocomplete]="auto"
                                             [(ngModel)]="selectedMediaValue"
-                                            [formControl]="stateCtrl">
+                                            [formControl]="dateCtrl">
                                         <button mat-button *ngIf="selectedMediaValue" matSuffix mat-icon-button aria-label="Clear" (click)="selectedMediaValue=''; selectedMedia=undefined;">
                                             <mat-icon>close</mat-icon>
                                         </button>
@@ -222,22 +226,33 @@
                     <mat-tab label="Ana Resim">
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm">
-                                <mat-form-field class="ml-24 mt-12">
-                                    <input matInput
-                                        placeholder="Ana Resim Seç"
-                                        aria-label="Ana Resim Seç"
-                                        [matAutocomplete]="autoMainImage"
-                                        [formControl]="stateCtrlMainImage">
-                                    <mat-autocomplete #autoMainImage="matAutocomplete" [panelWidth]="auto">
-                                        <mat-option *ngFor="let media of filteredMedias | async; let i = index" [value]="media.fileName" 
-                                            (click)="setSelectedMediaForSlider(media,i)">
-                                            <img class="example-option-img" aria-hidden [src]="media.filePath" height="75" width="75">
-                                            <span>{{media.fileName}}</span> |
-                                            <small>Size: {{media.size}}</small>
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </mat-form-field>
+                                <div class="col-sm" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" fxFlex="100">
+                                    <mat-form-field class="ml-24 mt-12" fxFlex="30">
+                                        <input matInput [matDatepicker]="dpForMainPage" placeholder="Ay ve Yıl" [formControl]="dateForMainImage">
+                                        <mat-datepicker-toggle matSuffix [for]="dpForMainPage"></mat-datepicker-toggle>
+                                        <mat-datepicker #dpForMainPage
+                                                        startView="multi-year"
+                                                        (yearSelected)="chosenYearHandlerMainImages($event)"
+                                                        (monthSelected)="chosenMonthHandlerMainImages($event, dpForMainPage)"
+                                                        panelClass="example-month-picker">
+                                        </mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="ml-24 mt-12" fxFlex="30">
+                                        <input matInput
+                                            placeholder="Ana Resim Seç"
+                                            aria-label="Ana Resim Seç"
+                                            [matAutocomplete]="autoMainImage"
+                                            [formControl]="dateCtrlMainImage">
+                                        <mat-autocomplete #autoMainImage="matAutocomplete" [panelWidth]="auto">
+                                            <mat-option *ngFor="let media of filteredMediasMainImage | async; let i = index" [value]="media.fileName" 
+                                                (click)="setSelectedMediaForSlider(media,i)">
+                                                <img class="example-option-img" aria-hidden [src]="media.filePath" height="75" width="75">
+                                                <span>{{media.fileName}}</span> |
+                                                <small>Size: {{media.size}}</small>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
                                 </div>                                  
                             </div>
                             <div class="col-sm ml-24">

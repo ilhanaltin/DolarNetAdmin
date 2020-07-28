@@ -1,3 +1,4 @@
+import { TodoFakeDb } from './../../../../fake-db/todo';
 import { MediaVM } from './../../../models/media/MediaVM';
 import { UserVM } from './../../../models/user/UserVM';
 import { PostVM } from './../../../models/blog/PostVM';
@@ -83,19 +84,28 @@ export class PostComponent implements OnInit, OnDestroy
     isClickedOnceUpdate: boolean = false;
     _editor: any;
 
-    stateCtrl = new FormControl();
-    stateCtrlMainImage = new FormControl();
+    dateCtrl = new FormControl();
+    dateCtrlMainImage = new FormControl();
     filteredMedias: Observable<MediaVM[]>;
+    filteredMediasMainImage: Observable<MediaVM[]>;
 
     mediaList: MediaVM[];
+    mediaListMainImage: MediaVM[];
+
     selectedMedia:MediaVM;
+
     selectedMediaValue:string;
+    
     selectedMediaForSlider:MediaVM;    
 
     date = new FormControl(moment());
+    dateForMainImage = new FormControl(moment());
 
     imageFilterMonth: number;
     imageFilterYear: number;
+
+    imageFilterMonthMainImages: number;
+    imageFilterYearMainImages: number;
 
     readonly _globalConstants = GlobalConstants;
 
@@ -130,6 +140,9 @@ export class PostComponent implements OnInit, OnDestroy
         
         this.imageFilterYear = (new Date()).getFullYear();
         this.imageFilterMonth = (new Date()).getMonth();
+
+        this.imageFilterYearMainImages = (new Date()).getFullYear();
+        this.imageFilterMonthMainImages = (new Date()).getMonth();
     }            
     
     // -----------------------------------------------------------------------------------------------------
@@ -160,21 +173,34 @@ export class PostComponent implements OnInit, OnDestroy
             this.postForm = this.createPostForm();
 
             this.getImages();
+            this.getMainImages();            
         });                     
     }
 
     getImages()
-    {
-        console.log("call getFilesForListControl");
-
+    {        
         this._fileManagerService.getFilesForListControl(this.imageFilterMonth + 1, this.imageFilterYear)
         .subscribe(result => {
             this.mediaList = result.result.mediaList;
 
-            this.filteredMedias = this.stateCtrl.valueChanges
+            this.filteredMedias = this.dateCtrl.valueChanges
             .pipe(
                 startWith(''),
-                map(media => media ? this._filterStates(media) : this.mediaList.slice())
+                map(media => media ? this._filterMedias(media) : this.mediaList.slice())
+            );
+        });
+    }
+
+    getMainImages()
+    {        
+        this._fileManagerService.getFilesForListControl(this.imageFilterMonthMainImages+ 1, this.imageFilterYearMainImages)
+        .subscribe(result => {
+            this.mediaListMainImage = result.result.mediaList;
+
+            this.filteredMediasMainImage = this.dateCtrlMainImage.valueChanges
+            .pipe(
+                startWith(''),
+                map(media => media ? this._filterMediasForMainImage(media) : this.mediaListMainImage.slice())
             );
         });
     }
@@ -185,24 +211,48 @@ export class PostComponent implements OnInit, OnDestroy
         this.date.setValue(ctrlValue);
 
         this.imageFilterYear = normalizedYear.year();
-      }
+    }
     
-      chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
         const ctrlValue = this.date.value;
         ctrlValue.month(normalizedMonth.month());
         this.date.setValue(ctrlValue);
         datepicker.close();
 
         this.imageFilterMonth = normalizedMonth.month();
-        console.log("call images");
 
         this.getImages();
-      }
+    }
 
-    private _filterStates(value: string): MediaVM[] {
+    chosenYearHandlerMainImages(normalizedYear: Moment) {
+        const ctrlValue = this.dateForMainImage.value;
+        ctrlValue.year(normalizedYear.year());
+        this.dateForMainImage.setValue(ctrlValue);
+
+        this.imageFilterYearMainImages = normalizedYear.year();
+    }
+    
+    chosenMonthHandlerMainImages(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+        const ctrlValue = this.dateForMainImage.value;
+        ctrlValue.month(normalizedMonth.month());
+        this.dateForMainImage.setValue(ctrlValue);
+        datepicker.close();
+
+        this.imageFilterMonthMainImages = normalizedMonth.month();
+
+        this.getMainImages();
+    }
+
+    private _filterMedias(value: string): MediaVM[] {
         const filterValue = value.toLowerCase();
 
         return this.mediaList.filter(state => state.fileName.toLowerCase().indexOf(filterValue) === 0);
+    }
+
+    private _filterMediasForMainImage(value: string): MediaVM[] {
+        const filterValue = value.toLowerCase();
+
+        return this.mediaListMainImage.filter(state => state.fileName.toLowerCase().indexOf(filterValue) === 0);
     }
 
     public onBlur( { editor }: BlurEvent ) {
