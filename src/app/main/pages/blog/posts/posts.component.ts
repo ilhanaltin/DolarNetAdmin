@@ -49,11 +49,11 @@ export class PostsComponent implements OnInit
     {
         if(this._authenticationService.isAdmin())
         {
-            this.displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks', "buttons"];
+            this.displayedColumns = ['id', 'title', 'publishDate','authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks', "buttons"];
         }
         else
         {
-            this.displayedColumns = ['id', 'title', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks'];
+            this.displayedColumns = ['id', 'title', 'publishDate', 'authorName', 'authorNickName', 'categoryTypeName', 'statusTypeName', 'feedbacks'];
         }
 
         // Set the private defaults

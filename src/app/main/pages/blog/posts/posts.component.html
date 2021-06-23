@@ -69,6 +69,14 @@
                     </mat-cell>
                 </ng-container>
 
+                <!-- Publish Date Column -->
+                <ng-container matColumnDef="publishDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Yayın Tarihi</mat-header-cell>
+                    <mat-cell *matCellDef="let post">
+                        <p class="text-truncate">{{post.publishDate | date:'dd-MM-yyyy'}}</p>
+                    </mat-cell>
+                </ng-container>
+
                  <!-- Author Name Column -->
                  <ng-container matColumnDef="authorName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Yazar</mat-header-cell>
